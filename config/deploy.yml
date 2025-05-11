@@ -45,15 +45,15 @@ registry:
 builder:
   arch: amd64
 
-# accessories:
-#   db:
-#     image: postgres:15
-#     host: 160.16.243.91
-#     env:
-#       clear:
-#         POSTGRES_USER: "career_chronicle_developer"
-#         POSTGRES_DB: "career_chronicle_production"
-#       secret:
-#         - POSTGRES_PASSWORD
-#     directories:
-#       - data:/var/lib/postgresql/data
+accessories:
+  db:
+    image: postgres:15
+    host: 160.16.243.91
+    env:
+      clear:
+        POSTGRES_USER: "career_chronicle_developer"
+        POSTGRES_DB: "career_chronicle_production"
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
