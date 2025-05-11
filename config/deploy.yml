@@ -45,37 +45,15 @@ registry:
 builder:
   arch: amd64
 
-accessories:
-  db:
-    image: postgres:15
-    host: 160.16.243.91
-    env:
-      clear:
-        POSTGRES_USER: "career_chronicle_developer"
-        POSTGRES_DB: "career_chronicle_production"
-      secret:
-        - POSTGRES_PASSWORD
-    directories:
-      - data:/var/lib/postgresql/data
-#
 # accessories:
 #   db:
-#     image: mysql:8.0
-#     host: 192.168.0.2
-#     port: 3306
+#     image: postgres:15
+#     host: 160.16.243.91
 #     env:
 #       clear:
-#         MYSQL_ROOT_HOST: '%'
+#         POSTGRES_USER: "career_chronicle_developer"
+#         POSTGRES_DB: "career_chronicle_production"
 #       secret:
-#         - MYSQL_ROOT_PASSWORD
-#     files:
-#       - config/mysql/production.cnf:/etc/mysql/my.cnf
-#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+#         - POSTGRES_PASSWORD
 #     directories:
-#       - data:/var/lib/mysql
-#   redis:
-#     image: valkey/valkey:8
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
+#       - data:/var/lib/postgresql/data
