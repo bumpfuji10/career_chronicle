@@ -1,11 +1,7 @@
 import { createApp } from 'vue'
-import Hello from '../components/Hello.vue'
+import Header from '../components/Header.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const el = document.getElementById('hello')
-  if (el) {
-    createApp(Hello).mount(el)
-  }
-
-  console.log('Hello from application.js!')
+  const headerEl = document.getElementById('header')
+  if (headerEl) createApp(Header).mount(headerEl)
 })
