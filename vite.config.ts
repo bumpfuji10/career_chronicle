@@ -5,6 +5,12 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [
     RubyPlugin(),
-    vue()
+    vue({
+      template: {
+        transformAssetUrls: {
+          includeAbsolute: false
+        }
+      }
+    })
   ],
 })
