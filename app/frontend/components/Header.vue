@@ -2,8 +2,12 @@
   <div class="header">
     <img src="/images/career_chronicle.png" class="header__logo"/>
     <div class="header__navigation">
-      <div class="header__navigation__button__login">ログイン</div>
-      <div class="header__navigation__button__signup">新規登録</div>
+      <button class="header__navigation__button__login">
+        <font-awesome-icon :icon="['fas', 'sign-in-alt']" /> ログイン
+      </button>
+      <button class="header__navigation__button__signup">
+        <font-awesome-icon :icon="['fas', 'user']" /> 新規登録
+      </button>
     </div>
   </div>
 </template>
@@ -39,6 +43,7 @@ export default {
     }
 
     &__button__signup {
+      border: 1px solid rgb(72, 104, 150);
       background-color: #486896;
       color: white;
       padding: 10px 20px;
