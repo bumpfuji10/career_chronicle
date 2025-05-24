@@ -21,6 +21,7 @@ export default {
 
 <style scoped lang="scss">
 .header {
+  border-bottom: 1px solid #e8e0e0;
   display: flex;
   justify-content: space-between;
 
