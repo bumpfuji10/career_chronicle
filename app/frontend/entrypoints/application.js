@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import '../stylesheets/application.scss'
 import Header from '../components/Header.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
