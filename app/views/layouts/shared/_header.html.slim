@@ -1,5 +1,9 @@
 .header
   img.header__logo.img(src="/images/career_chronicle.png", alt="キャリクロ！")
   .header__navigation
-    .header__navigation__button__login ログイン
-    .header__navigation__button__signup 新規登録
+    button.header__navigation__button__login
+      #LoginIcon
+      = link_to("ログイン", new_user_path)
+    button.header__navigation__button__signup
+      #SignupIcon
+      = link_to("新規登録", new_user_path)
