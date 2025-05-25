@@ -1,1 +1,6 @@
-@import 'shared/header.scss'
+@import 'shared/header.scss';
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
