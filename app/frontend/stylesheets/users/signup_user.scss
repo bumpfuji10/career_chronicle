@@ -1,0 +1,28 @@
+@import '../base.scss';
+.hero-icon {
+  width: 100px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.userNewForm {
+  border: 1px solid $form-border-color;
+  border-radius: 8px;
+  padding: 0 15px 15px 15px;
+  margin: 0 auto;
+  width: 30%;
+
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
+}
+
+.field {
+  padding-top: 15px;
+  display: grid;
+  gap: 4px;
+}
+
+.promote-login {
+  display: grid;
+}

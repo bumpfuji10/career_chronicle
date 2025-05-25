@@ -11,30 +11,6 @@
     display: flex;
     gap: 10px;
     align-items: center;
-
-    &__button__login {
-      background-color: white;
-      color: #3a547a;
-      border: 1px solid #3a547a;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    &__button__signup {
-      background-color: #486896;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      border: 1px solid #486896;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
   }
 }
 

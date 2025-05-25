@@ -1,24 +1,24 @@
 = form_with model: @user, local: true do |form|
-  - if @user.errors.any?
-    #error_explanation
-      h2
-        = pluralize(@user.errors.count, "error")
-        | prohibited this user from being saved:
-      ul
-        - @user.errors.full_messages.each do |message|
-          li = message
+  img.hero-icon(src="/images/career_chronicle.png", alt="キャリクロ！")
+  p.base-txt 5ステップ職務経歴書を簡単作成
 
-  .field
-    = form.label :name
-    = form.text_field :name
+  .userNewForm
+    .field
+      = form.label :name, "お名前"
+      = form.text_field :name
 
-  .field
-    = form.label :email
-    = form.email_field :email
+    .field
+      = form.label :email, "メールアドレス"
+      = form.email_field :email
 
-  .field
-    = form.label :password
-    = form.password_field :password
+    .field
+      = form.label :password, "パスワード"
+      = form.password_field :password
 
-  .actions
-    = form.submit "Create User"
+    .actions
+      = form.submit "アカウント作成", class: "base-btn base-btn__account"
+
+  p.base-txt.promote-login
+      | すでにアカウントをお持ちですか？
+      br
+      = link_to "こちらからログイン", new_user_path, class: "base-txt__link"
