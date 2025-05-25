@@ -4,10 +4,6 @@
 
   .userNewForm
     .field
-      = form.label :name, "お名前"
-      = form.text_field :name
-
-    .field
       = form.label :email, "メールアドレス"
       = form.email_field :email
 
@@ -16,9 +12,9 @@
       = form.password_field :password
 
     .actions
-      = form.submit "アカウント作成", class: "base-btn base-btn__form"
+      = form.submit "ログイン", class: "base-btn base-btn__form"
 
   p.base-txt.promote-login
-      | すでにアカウントをお持ちですか？
+      | アカウント登録がまだの方は
       br
-      = link_to "こちらからログイン", new_user_path, class: "base-txt__link"
+      = link_to "こちらから新規登録", login_path, class: "base-txt__link"
