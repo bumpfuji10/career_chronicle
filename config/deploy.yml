@@ -16,6 +16,7 @@ env:
     PORT: 3000
   secret:
     - RAILS_MASTER_KEY
+    - SECRET_KEY_BASE
   # job:
   #   hosts:
   #     - 192.168.0.1
