@@ -1,0 +1,32 @@
+@import "./../base.scss";
+
+.auth-tab {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  padding: 6px;
+  background-color: rgb(228, 232, 239);
+}
+
+.auth-tab__login,
+.auth-tab__signup {
+  flex: 1;
+}
+
+.auth-tab a {
+  display: block;
+  width: 100%;
+  padding: 4px 0;
+  text-align: center;
+  border-radius: 5px;
+  color: gray; // 非アクティブ状態
+  font-weight: normal;
+}
+
+.auth-tab a.active {
+  background-color: white;
+  color: $txt-link-color;
+  font-weight: bold;
+}

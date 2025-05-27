@@ -3,6 +3,7 @@
   p.base-txt 5ステップで職務経歴書を簡単作成
 
   .userForm
+    #AuthTab
     .field
       = form.label :email, "メールアドレス"
       = form.email_field :email
@@ -17,4 +18,4 @@
   p.base-txt.promote-login
       | アカウント登録がまだの方は
       br
-      = link_to "こちらから新規登録", new_user_path, class: "base-txt__link"
+      = link_to "こちらから新規登録", signup_path, class: "base-txt__link"
