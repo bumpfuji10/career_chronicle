@@ -9,6 +9,12 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
+ARG SECRET_KEY_BASE
+ARG RAILS_MASTER_KEY
+
+ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+
 # --------------------------------
 # Build stage
 # --------------------------------
