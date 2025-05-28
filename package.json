@@ -12,5 +12,9 @@
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@vitejs/plugin-vue": "^5.2.4",
     "vue": "^3.5.14"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
   }
 }

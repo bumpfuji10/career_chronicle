@@ -1,8 +1,9 @@
 = form_with model: @user, local: true do |form|
   img.hero-icon(src="/images/career_chronicle.png", alt="キャリクロ！")
-  p.base-txt 5ステップ職務経歴書を簡単作成
+  p.base-txt 5ステップで職務経歴書を簡単作成
 
-  .userNewForm
+  .userForm
+    #AuthTab
     .field
       = form.label :name, "お名前"
       = form.text_field :name
@@ -21,4 +22,4 @@
   p.base-txt.promote-login
       | すでにアカウントをお持ちですか？
       br
-      = link_to "こちらからログイン", new_user_path, class: "base-txt__link"
+      = link_to "こちらからログイン", login_path, class: "base-txt__link"
