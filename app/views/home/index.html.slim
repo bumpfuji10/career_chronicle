@@ -11,7 +11,7 @@
         | 自然で魅力的な職務経歴書が完成します
 
     .home__hero__startButton
-      = link_to '#' do
-        button.base-btn
-          | 無料で始める
-          #ArrowRightIcon
+      = link_to("#", class: "base-btn") do
+        | 無料ではじめる
+        #ArrowRightIcon
+      = link_to("ログイン", login_path, class: "base-btn base-btn__white")
