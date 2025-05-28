@@ -42,3 +42,13 @@ a {
   }
 }
 
+
+.base-btn:hover {
+  background-color: darken($base-color, 10%);
+  color: white;
+}
+
+.base-btn__white:hover {
+  background-color: rgb(246, 245, 249);
+  color: darken(#3a547a, 10%);
+}

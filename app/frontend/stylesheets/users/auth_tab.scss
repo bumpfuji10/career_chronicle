@@ -1,5 +1,9 @@
 @import "./../base.scss";
 
+$tab-color: rgb(228, 232, 239);
+$tab-not-active-color: gray;
+$tab-active-color: white;
+
 .auth-tab {
   margin-top: 10px;
   display: flex;
@@ -7,7 +11,7 @@
   justify-content: space-evenly;
   border-radius: 5px;
   padding: 6px;
-  background-color: rgb(228, 232, 239);
+  background-color: $tab-color;
 }
 
 .auth-tab__login,
@@ -21,12 +25,12 @@
   padding: 4px 0;
   text-align: center;
   border-radius: 5px;
-  color: gray; // 非アクティブ状態
+  color: $tab-not-active-color;
   font-weight: normal;
 }
 
 .auth-tab a.active {
-  background-color: white;
+  background-color: $tab-active-color;
   color: $txt-link-color;
   font-weight: bold;
 }
