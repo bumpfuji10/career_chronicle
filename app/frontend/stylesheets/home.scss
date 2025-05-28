@@ -1,36 +1,80 @@
 @import './base.scss';
 
-.home__hero {
+.home {
   background-color: #f7faff;
 
-  &__text {
-    text-align: center;
-    padding: 3rem 1rem 1rem 1rem;
+  .home__hero {
 
-    &__five-step {
-      font-size: 2rem;
-      font-weight: 800;
-      line-height: 1.3;
-      color: #1e293b;
+    &__text {
+      text-align: center;
+      padding: 3rem 1rem 1rem 1rem;
 
-      .five-step__blue {
-        color: $txt-link-color;
+      &__five-step {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.3;
+        color: #1e293b;
+
+        .five-step__blue {
+          color: $txt-link-color;
+        }
+      }
+
+      &__simple {
+        margin-top: 1rem;
+        font-size: 1rem;
+        line-height: 1.75;
+        color: $base-color;
       }
     }
 
-    &__simple {
-      margin-top: 1rem;
-      font-size: 1rem;
-      line-height: 1.75;
-      color: $base-color;
+    &__startButton {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      gap: 8px;
+      padding-bottom: 3rem;
     }
   }
 
-  &__startButton {
-    display: flex;
-    justify-content: center;
+  .home__features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
     margin: 0 auto;
-    gap: 8px;
     padding-bottom: 3rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr)); // タブレット以上で3列
+    }
+
+    &__item {
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+
+      &__icon {
+        padding: 0.75rem;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #e6e9ed;
+        color: $base-color;
+      }
+
+      &__title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+
+      &__description {
+        font-size: 1rem;
+        color: #475569;
+      }
+    }
   }
 }
