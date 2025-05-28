@@ -5,10 +5,10 @@ import components from './components'
 // FontAwesome の設定
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUser, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faSignInAlt, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 // 必要なアイコンを登録
-library.add(faUser, faSignInAlt)
+library.add(faUser, faSignInAlt, faArrowRight)
 
 import Header from '../components/Header.vue'
 
