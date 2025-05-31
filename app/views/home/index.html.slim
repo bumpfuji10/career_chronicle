@@ -17,29 +17,14 @@
       = link_to("ログイン", login_path, class: "base-btn base-btn__white")
 
   .home__features
-    .home__features__item
-      .home__features__item__icon
-        #ClockIcon
-      .home__features__item__title
-        | 5分で完成
-      .home__features__item__description
-        | ガイドに従うだけで短時間で作成
-
-    .home__features__item
-      .home__features__item__icon
-        #FileIcon
-      .home__features__item__title
-        | プロ品質
-      .home__features__item__description
-        | 採用担当者に響く文章の作成をサポート
-
-    .home__features__item
-      .home__features__item__icon
-        #UserGroupIcon
-      .home__features__item__title
-        | 複数職歴対応
-      .home__features__item__description
-        | 複数の職歴を統合して管理
+    - @home_features.each do |feature|
+      .home__features__item
+        .home__features__item__icon
+          div id=feature[:icon_id]
+        .home__features__item__title
+          = feature[:title]
+        .home__features__item__description
+          = feature[:description]
 
   .home__hero
     .home__hero__text
@@ -49,43 +34,14 @@
         | ガイドに従って入力するだけで、プロ品質の職務経歴書が完成
       .home__hero__step-line
     .home__step-flow
-      // 社名ステップ
-      .home__step-flow__item
-        .home__step-flow__item__header
-          .home__step-flow__icon
-            #CompanyIcon
-          .home__step-flow__number 1
-          .home__step-flow__title 会社名・職歴
-        .home__step-flow__description どこで、どんな役割で働いていたかを入力します
-      // やったことステップ
-      .home__step-flow__item
-        .home__step-flow__item__header
-          .home__step-flow__icon
-            #BriefcaseIcon
-          .home__step-flow__number 2
-          .home__step-flow__title やったこと
-        .home__step-flow__description 具体的な業務内容や担当したプロジェクトを入力します
-      // 工夫ステップ
-      .home__step-flow__item
-        .home__step-flow__item__header
-          .home__step-flow__icon
-            #LightbulbIcon
-          .home__step-flow__number 3
-          .home__step-flow__title 工夫したこと
-        .home__step-flow__description 業務における創意工夫や独自のアプローチを入力します
-      // 成果ステップ
-      .home__step-flow__item
-        .home__step-flow__item__header
-          .home__step-flow__icon
-            #ChartLineIcon
-          .home__step-flow__number 4
-          .home__step-flow__title 成果・実績
-        .home__step-flow__description 具体的な成果や数字で示せる実績を入力します
-      // 文章整形ステップ
-      .home__step-flow__item
-        .home__step-flow__item__header
-          .home__step-flow__icon
-            #FileLinesIcon
-          .home__step-flow__number 5
-          .home__step-flow__title 文章整形
-        .home__step-flow__description 入力した内容を自然な文章に整形して完成です
+      - @home_step_items.each_with_index do |step_item, index|
+        .home__step-flow__item
+          .home__step-flow__item__header
+            .home__step-flow__icon
+              div id=step_item[:icon_id]
+            .home__step-flow__number
+              = index + 1
+            .home__step-flow__title
+              = step_item[:title]
+          .home__step-flow__description
+            = step_item[:description]
