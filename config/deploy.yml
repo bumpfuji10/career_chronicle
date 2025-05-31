@@ -17,7 +17,6 @@ env:
   secret:
     - RAILS_MASTER_KEY
     - SECRET_KEY_BASE
-    - DATABASE_URL
   # job:
   #   hosts:
   #     - 192.168.0.1
