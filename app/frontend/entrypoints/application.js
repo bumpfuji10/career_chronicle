@@ -5,17 +5,39 @@ import components from './components'
 // FontAwesome の設定
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-// 塗りつぶしアイコン
-import { faUser, faSignInAlt, faArrowRight } from '@fortawesome/free-solid-svg-icons'
-// 線スタイルアイコン
-import { faClock as faClockRegular, faFile as faFileRegular, faUser as faUserRegular  } from '@fortawesome/free-regular-svg-icons'
 
-
-// 必要なアイコンを登録
-library.add(
+// 塗りつぶし（solid）アイコン
+import {
   faUser,
   faSignInAlt,
   faArrowRight,
+  faBuilding,
+  faBriefcase,
+  faLightbulb,
+  faChartLine,
+  faFileLines
+} from '@fortawesome/free-solid-svg-icons'
+
+// 線（regular）アイコン
+import {
+  faClock as faClockRegular,
+  faFile as faFileRegular,
+  faUser as faUserRegular
+} from '@fortawesome/free-regular-svg-icons'
+
+// 必要なアイコンを登録
+library.add(
+  // solid
+  faUser,
+  faSignInAlt,
+  faArrowRight,
+  faBuilding,
+  faBriefcase,
+  faLightbulb,
+  faChartLine,
+  faFileLines,
+
+  // regular
   faClockRegular,
   faFileRegular,
   faUserRegular
