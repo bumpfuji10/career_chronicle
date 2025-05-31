@@ -35,6 +35,16 @@
       gap: 8px;
       padding-bottom: 3rem;
     }
+
+    &__step-line {
+      border: 0.125rem solid #d1d5db;
+      position: relative;
+      top: 3rem;
+
+      @media screen and (max-width: 568px) {
+        display: none;
+      }
+    }
   }
 
   .home__features {
@@ -82,9 +92,11 @@
     display: grid;
     justify-items: center;
     grid-template-columns: repeat(5, minmax(0, 1fr));
+    position: relative;
 
-    &__list {
-
+    @media screen and (max-width: 568px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
     }
 
     &__icon {
@@ -103,6 +115,13 @@
       display: grid;
       justify-items: center;
       text-align: center;
+      gap: 8px;
+    }
+
+    &__number {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1c1919;
     }
 
     &__title {
