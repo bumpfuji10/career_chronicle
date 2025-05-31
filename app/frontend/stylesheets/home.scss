@@ -2,6 +2,12 @@
 
 .home {
   background-color: #f7faff;
+  margin: 0 auto;
+  padding: 0 130px;
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 
   .home__hero {
 
@@ -91,8 +97,8 @@
   &__step-flow {
     display: grid;
     justify-items: center;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
     position: relative;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
 
     @media screen and (max-width: 568px) {
       grid-template-columns: 1fr;
@@ -112,16 +118,25 @@
     }
 
     &__item {
-      display: grid;
-      justify-items: center;
       text-align: center;
-      gap: 8px;
+      padding: 0 60px;
+
+      &__header {
+        display: grid;
+        justify-items: center;
+        gap: 6px;
+      }
     }
 
     &__number {
-      font-size: 1.5rem;
+      font-size: 1rem;
       font-weight: 600;
-      color: #1c1919;
+      color: white;
+      background: #486896;
+      display: flex;
+      padding: 5px 10px;
+      align-items: center;
+      border-radius: 50%;
     }
 
     &__title {
@@ -134,7 +149,7 @@
     &__description {
       font-size: 1rem;
       color: #475569;
-      margin-top: 0.5rem;
+      margin-top: 1.5rem;
     }
   }
 }
