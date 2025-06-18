@@ -1,0 +1,26 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "Rails Development (Docker Compose)",
+  "dockerComposeFile": "../docker-compose.yml", // docker-compose.ymlのパスを正しく指定
+  "service": "app", // docker-compose.ymlで定義したRailsアプリケーションのサービス名
+  "workspaceFolder": "/rails", // コンテナ内のワークスペースパス。DockerfileのWORKDIRと同じにする
+
+  // VS Code拡張機能の設定
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rebornix.ruby",     // Ruby (Standard)拡張機能。Ruby LSPに必要
+        "shopify.ruby-lsp",  // Ruby LSP拡張機能
+      ]
+    }
+  },
+
+  // コンテナ作成後に実行されるコマンド
+  // ここで開発用gemのインストールやDBセットアップなどを行う
+  "postCreateCommand": "bundle install && bundle exec rails db:create db:migrate",
+  // Ruby LSPがbundle execを使うように設定
+  "settings": {
+    "rubyLsp.bundleGemfile": true
+  },
+  "remoteUser": "root" // コンテナ内で実行するユーザー。Dockerfileでユーザーを切り替えていなければrootでOK
+}
