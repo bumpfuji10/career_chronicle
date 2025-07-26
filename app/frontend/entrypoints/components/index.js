@@ -10,6 +10,7 @@ import LightbulbIcon from "../../components/LightbulbIcon.vue";
 import ChartLineIcon from "../../components/ChartLineIcon.vue";
 import FileLinesIcon from "../../components/FileLinesIcon.vue";
 import AuthTab from "../../components/AuthTab.vue";
+import ResumeForm from "../../components/ResumeForm.vue";
 
 export default {
   LoginIcon,
@@ -23,5 +24,6 @@ export default {
   LightbulbIcon,
   ChartLineIcon,
   FileLinesIcon,
-  AuthTab
+  AuthTab,
+  ResumeForm
 }
