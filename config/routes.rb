@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:create]
   get "signup" => "users#new", as: :signup
+
+  resources :resumes, only: [:new, :create]
 end
