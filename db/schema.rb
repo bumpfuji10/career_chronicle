@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_19_035200) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_26_074149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_19_035200) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["session_token"], name: "index_guest_users_on_session_token", unique: true
+  end
+
+  create_table "resumes", force: :cascade do |t|
+    t.string "company"
+    t.string "position"
+    t.text "tasks"
+    t.text "improvements"
+    t.text "achievements"
+    t.text "summary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
