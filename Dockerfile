@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 ARG RUBY_VERSION=3.3.0
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
+FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
 
 WORKDIR /rails
 
@@ -18,11 +18,11 @@ ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 # --------------------------------
 # Build stage
 # --------------------------------
-FROM base as build
+FROM base AS build
 
 # Install packages needed to build gems + Node.js for vite
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
       build-essential \
       git \
       libpq-dev \
@@ -33,7 +33,7 @@ RUN apt-get update -qq && \
       postgresql-client && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives
 
 # Install Ruby gems
 COPY Gemfile Gemfile.lock ./
@@ -52,7 +52,7 @@ RUN npm run build
 
 # Precompile Ruby assets
 RUN bundle exec bootsnap precompile app/ lib/
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE=DUMMY ./bin/rails assets:precompile
 
 # --------------------------------
 # Final stage
@@ -60,11 +60,11 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 FROM base
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
       curl \
       libvips \
       postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives
 
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
