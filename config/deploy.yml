@@ -45,9 +45,6 @@ registry:
 # Configure builder setup.
 builder:
   arch: amd64
-  args:
-    SECRET_KEY_BASE: <%= ENV.fetch("SECRET_KEY_BASE") %>
-    RAILS_MASTER_KEY: <%= ENV.fetch("RAILS_MASTER_KEY") %>
 
 accessories:
   db:
