@@ -38,5 +38,8 @@ module Myapp
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    
+    # Disable host checking in test and development
+    config.hosts.clear if Rails.env.test? || Rails.env.development?
   end
 end
