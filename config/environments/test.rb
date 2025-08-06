@@ -61,4 +61,8 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Disable host authorization for test
+  config.force_ssl = false
+  config.host_authorization = { exclude: ->(request) { true } }
 end
