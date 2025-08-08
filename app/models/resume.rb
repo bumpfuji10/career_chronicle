@@ -3,6 +3,10 @@ class Resume < ApplicationRecord
   belongs_to :guest_user, optional: true
   
   validate :user_or_guest_user_present
+
+  def generate_summary
+    "私は#{company}で#{position}として、#{tasks}。その中で#{improvements}。結果として#{achievements}。"
+  end
   
   private
   
