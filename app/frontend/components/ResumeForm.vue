@@ -81,6 +81,7 @@ export default {
         this.summary = data.summary
         this.done = true
       } else {
+        console.log(response)
         alert('保存に失敗しました')
       }
     }
