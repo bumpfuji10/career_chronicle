@@ -69,7 +69,7 @@ export default {
       }
     },
     async submitForm() {
-      const response = await fetch('/resumes', {
+      const response = await fetch('/api/v1/resumes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
