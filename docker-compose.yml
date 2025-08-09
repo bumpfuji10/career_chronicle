@@ -16,11 +16,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: bash -c "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0 -p 3000"
+    # Rails と Vite を foreman (bin/dev) で同時起動
+    command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
     volumes:
       - .:/rails
     ports:
-      - "3000:3000"
+      - "3000:3000" # Rails
+      - "3036:3036" # Vite
     depends_on:
       - db
     environment:
