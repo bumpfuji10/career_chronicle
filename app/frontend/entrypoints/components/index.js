@@ -11,6 +11,7 @@ import ChartLineIcon from "../../components/ChartLineIcon.vue";
 import FileLinesIcon from "../../components/FileLinesIcon.vue";
 import AuthTab from "../../components/AuthTab.vue";
 import ResumeForm from "../../components/ResumeForm.vue";
+import OpenAboutModalButton from "../../components/OpenAboutModalButton.vue"
 
 export default {
   LoginIcon,
@@ -25,5 +26,6 @@ export default {
   ChartLineIcon,
   FileLinesIcon,
   AuthTab,
-  ResumeForm
+  ResumeForm,
+  OpenAboutModalButton
 }
