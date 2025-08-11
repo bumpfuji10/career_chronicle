@@ -1,6 +1,7 @@
 module Api
   module V1
     class ResumesController < ApplicationController
+      skip_before_action :verify_authenticity_token
       before_action :find_or_create_guest_user
 
       def create
@@ -19,7 +20,7 @@ module Api
         @guest_user = ProvideGuestUser.new(session).call
       end
 
-      def resumes_params
+      def resume_params
         params.require(:resume).permit(:company, :position, :tasks, :improvements, :achievements)
       end
     end

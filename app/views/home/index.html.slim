@@ -10,11 +10,17 @@
         br
         | あっという間に職務経歴書が完成します
 
-    .home__hero__startButton
-      = link_to(new_resume_path, class: "base-btn") do
-        | 無料ではじめる
-        #ArrowRightIcon
-      = link_to("ログイン", login_path, class: "base-btn base-btn__white")
+    - unless logged_in?
+      .home__hero__startButton
+        = link_to(new_resume_path, class: "base-btn") do
+          | 無料ではじめる
+          #ArrowRightIcon
+        = link_to("ログイン", login_path, class: "base-btn base-btn__white")
+    - else
+      .home__hero__startButton
+        = link_to(new_resume_path, class: "base-btn") do
+          | 履歴書を作成する
+          #ArrowRightIcon
 
   .home__features
     - @home_features.each do |feature|
