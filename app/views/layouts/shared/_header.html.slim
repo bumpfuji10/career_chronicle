@@ -2,9 +2,12 @@
   = link_to root_path do
     img.header__logo.img(src="/images/career_chronicle.png", alt="キャリクロ！")
   .header__navigation
-    button.base-btn.base-btn__white
-      #LoginIcon
-      = link_to("ログイン", login_path)
-    button.base-btn
-      #SignupIcon
-      = link_to("新規登録", signup_path)
+    - if logged_in?
+      = button_to "ログアウト", logout_path, method: :delete, class: "base-btn base-btn__white"
+    - else
+      button.base-btn.base-btn__white
+        #LoginIcon
+        = link_to("ログイン", login_path)
+      button.base-btn
+        #SignupIcon
+        = link_to("新規登録", signup_path)
