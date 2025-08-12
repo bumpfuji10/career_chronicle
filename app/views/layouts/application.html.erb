@@ -25,5 +25,9 @@
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
+    
+    <script>
+      window.railsFlashMessages = <%= flash.to_hash.to_json.html_safe %>;
+    </script>
   </body>
 </html>
