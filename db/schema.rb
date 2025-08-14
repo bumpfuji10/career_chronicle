@@ -10,16 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_28_145010) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_14_141205) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "guest_users", force: :cascade do |t|
-    t.string "session_token", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["session_token"], name: "index_guest_users_on_session_token", unique: true
-  end
 
   create_table "resumes", force: :cascade do |t|
     t.string "company"
@@ -31,21 +24,21 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_28_145010) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.bigint "guest_user_id"
-    t.index ["guest_user_id"], name: "index_resumes_on_guest_user_id"
     t.index ["user_id"], name: "index_resumes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "password_digest", null: false
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type"
+    t.string "session_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name"
+    t.index ["session_token"], name: "index_users_on_session_token", unique: true
   end
 
-  add_foreign_key "resumes", "guest_users"
   add_foreign_key "resumes", "users"
 end
