@@ -14,12 +14,14 @@ class ProvideGuestUser
     token = @session[:guest_user_token]
     return unless token
     
-    GuestUser.find_by(session_token: token)
+    Guest.find_by(session_token: token)
   end
 
   def create_guest_user
     token = SecureRandom.hex(16)
-    guest_user = GuestUser.create!(session_token: token)
+    guest_user = Guest.new
+    guest_user.session_token = token
+    guest_user.save!
     @session[:guest_user_token] = token
     guest_user
   end
