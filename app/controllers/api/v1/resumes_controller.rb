@@ -5,7 +5,7 @@ module Api
       before_action :ensure_user, only: [:create]
 
       def create
-        resume = @guest_user.resumes.build(resume_params)
+        resume = @user.resumes.build(resume_params)
         resume.summary = resume.generate_summary
         if resume.save
           render json: { id: resume.id, summary: resume.summary }, status: :created
@@ -17,7 +17,7 @@ module Api
       private
 
       def ensure_user
-        @guest_user = current_user || ProvideGuestUser.new(session).call
+        @user = current_member || ProvideGuestUser.new(session).call
       end
 
       def resume_params
