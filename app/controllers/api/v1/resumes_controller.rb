@@ -17,7 +17,7 @@ module Api
       private
 
       def ensure_user
-        @user = current_member || ProvideGuestUser.new(session).call
+        @user = current_member || current_guest
       end
 
       def resume_params
