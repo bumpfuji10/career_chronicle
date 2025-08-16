@@ -136,6 +136,7 @@ GEM
       sshkit (>= 1.23.0, < 2.0)
       thor (~> 1.3)
       zeitwerk (>= 2.6.18, < 3.0)
+    language_server-protocol (3.17.0.5)
     logger (1.7.0)
     loofah (2.24.1)
       crass (~> 1.0.2)
@@ -176,6 +177,7 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    prism (1.4.0)
     psych (5.2.6)
       date
       stringio
@@ -222,6 +224,8 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rake (13.2.1)
+    rbs (3.9.4)
+      logger
     rdoc (6.13.1)
       psych (>= 4.0.0)
     reline (0.6.1)
@@ -243,6 +247,10 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.4)
+    ruby-lsp (0.26.1)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 1.2, < 2.0)
+      rbs (>= 3, < 5)
     securerandom (0.4.1)
     slim (5.2.1)
       temple (~> 0.10.0)
@@ -316,6 +324,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.5, >= 7.1.5.1)
   rspec-rails (~> 6.0)
+  ruby-lsp
   slim-rails
   sprockets-rails
   stimulus-rails
