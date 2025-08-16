@@ -2,7 +2,7 @@ module Api
   module V1
     class ResumesController < ApplicationController
       skip_before_action :verify_authenticity_token
-      before_action :find_or_create_guest_user
+      before_action :ensure_user, only: [:create]
 
       def create
         resume = @guest_user.resumes.build(resume_params)
@@ -16,8 +16,8 @@ module Api
 
       private
 
-      def find_or_create_guest_user
-        @guest_user = ProvideGuestUser.new(session).call
+      def ensure_user
+        @guest_user = current_user || ProvideGuestUser.new(session).call
       end
 
       def resume_params
