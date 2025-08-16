@@ -7,15 +7,13 @@ module Api
       def create
         resume = @user.resumes.build(resume_params)
         resume.summary = resume.generate_summary
+        
         if resume.save
-          render json: { 
-            id: resume.id, 
-            summary: resume.summary 
-          }, status: :created
+          generator = JsonResponseGenerator.new(resume, user: @user)
+          render json: generator.success, status: :created
         else
-          render json: {
-            errors: resume.errors.full_messages
-          }, status: :unprocessable_entity
+          generator = JsonResponseGenerator.new(resume)
+          render json: generator.error('保存に失敗しました', resume.errors.full_messages), status: :unprocessable_entity
         end
       end
 
