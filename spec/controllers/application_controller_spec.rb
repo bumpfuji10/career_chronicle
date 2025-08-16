@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationController, type: :controller do
-  describe '#current_user' do
+  describe '#current_member' do
     controller do
       def index
-        render plain: current_user&.id || 'no user'
+        render plain: current_member&.id || 'no user'
       end
     end
 
@@ -17,14 +17,14 @@ RSpec.describe ApplicationController, type: :controller do
 
       it 'returns the logged-in user' do
         get :index
-        expect(controller.send(:current_user)).to eq(user)
+        expect(controller.send(:current_member)).to eq(user)
       end
     end
 
     context 'when user is not logged in' do
       it 'returns nil' do
         get :index
-        expect(controller.send(:current_user)).to be_nil
+        expect(controller.send(:current_member)).to be_nil
       end
     end
   end
