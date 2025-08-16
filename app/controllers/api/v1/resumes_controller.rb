@@ -8,9 +8,14 @@ module Api
         resume = @user.resumes.build(resume_params)
         resume.summary = resume.generate_summary
         if resume.save
-          render json: { id: resume.id, summary: resume.summary }, status: :created
+          render json: { 
+            id: resume.id, 
+            summary: resume.summary 
+          }, status: :created
         else
-          render json: { errors: resume.errors.full_messages }, status: :unprocessable_entity
+          render json: {
+            errors: resume.errors.full_messages
+          }, status: :unprocessable_entity
         end
       end
 
