@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :members, only: [:create]
   get "signup" => "members#new", as: :signup
 
-  resources :resumes, only: [:new, :create]
+  resources :resumes, only: [:new, :create, :show]
 
   namespace :api do
     namespace :v1 do
