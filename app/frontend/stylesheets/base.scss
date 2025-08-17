@@ -26,6 +26,7 @@ a {
   border: 1px solid $base-color;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 
   &__white {

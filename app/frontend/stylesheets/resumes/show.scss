@@ -1,0 +1,142 @@
+@import '../base.scss';
+
+.resume-detail {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    font-size: 32px;
+    color: $base-color;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  &__guest-notice {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    .guest-notice__text {
+      color: #495057;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+  }
+
+  &__content {
+    background-color: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+
+  &__section {
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #f2f2f2;
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &__section-icon {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    vertical-align: middle;
+    color: $base-color;
+  }
+
+  &__section-title {
+    display: inline-block;
+    font-size: 18px;
+    color: $base-color;
+    font-weight: bold;
+    margin-bottom: 15px;
+    vertical-align: middle;
+  }
+
+  &__section-content {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.8;
+    padding-left: 42px;
+  }
+
+  &__summary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &__summary-title {
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  &__summary-content {
+    font-size: 16px;
+    color: white;
+    line-height: 1.8;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .resume-detail {
+    &__title {
+      font-size: 24px;
+    }
+
+    &__content {
+      padding: 20px;
+    }
+
+    &__section-content {
+      padding-left: 0;
+      margin-top: 10px;
+    }
+
+    &__summary {
+      padding: 20px;
+    }
+
+    &__actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+
+      .base-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}

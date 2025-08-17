@@ -1,0 +1,48 @@
+.resume-detail
+  .resume-detail__header
+    h1.resume-detail__title
+    - if @user.is_a?(Guest)
+      .resume-detail__guest-notice
+        p.guest-notice__text
+          | ゲストユーザーとして作成した職務経歴書です
+        p.guest-notice__text
+          | アカウント登録をすると、複数の職務経歴書を作成・管理できるようになります
+        div(style="display: flex; justify-content: center;")
+          = link_to "アカウント登録", signup_path, class: "base-btn"
+
+  .resume-detail__summary
+    h2.resume-detail__summary-title 文章化した職務経歴
+    .resume-detail__summary-content
+      = @resume.generate_summary
+
+  .resume-detail__content
+    .resume-detail__section
+      .resume-detail__section-icon
+        #CompanyIcon
+      h2.resume-detail__section-title 会社名・役職
+      .resume-detail__section-content
+        = "#{@resume.company} / #{@resume.position}"
+
+    .resume-detail__section
+      .resume-detail__section-icon
+        #BriefcaseIcon
+      h2.resume-detail__section-title やったこと
+      .resume-detail__section-content
+        = simple_format(@resume.tasks)
+
+    .resume-detail__section
+      .resume-detail__section-icon
+        #LightbulbIcon
+      h2.resume-detail__section-title 工夫したこと
+      .resume-detail__section-content
+        = simple_format(@resume.improvements)
+
+    .resume-detail__section
+      .resume-detail__section-icon
+        #ChartLineIcon
+      h2.resume-detail__section-title 成果・実績
+      .resume-detail__section-content
+        = simple_format(@resume.achievements)
+
+  .resume-detail__actions(style="display: flex;")
+    = link_to "トップページへ戻る", root_path, class: "base-btn base-btn__white"
