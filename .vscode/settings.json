@@ -21,9 +21,7 @@
     "typeHierarchy": true,
     "workspaceSymbol": true
   },
-  "rubyLsp.rubyVersionManager": {
-    "identifier": "none"
-  },
+  "rubyLsp.rubyVersionManager": "none",
   "rubyLsp.customRubyCommand": "bundle exec ruby-lsp",
   "rubyLsp.formatter": "auto",
   "rubyLsp.linters": ["rubocop"],
