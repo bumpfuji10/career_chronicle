@@ -12,9 +12,12 @@
 
     - unless logged_in?
       .home__hero__startButton
-        = link_to(new_resume_path, class: "base-btn") do
-          | 無料ではじめる
-          #ArrowRightIcon
+        - if @user.is_a?(Guest) && !@user.resumes.exists?
+          = link_to(new_resume_path, class: "base-btn") do
+            | 無料ではじめる
+            #ArrowRightIcon
+        - else
+          = link_to("作成した経歴書を確認する", "#", class: "base-btn")
         = link_to("ログイン", login_path, class: "base-btn base-btn__white")
     - else
       .home__hero__startButton

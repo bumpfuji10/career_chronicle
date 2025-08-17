@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    @user = current_guest || current_member
     @home_features = [
       { icon_id: "ClockIcon", title: "5分で完成", description: "ガイドに従うだけで短時間で作成" },
       { icon_id: "FileIcon", title: "プロ品質", description: "採用担当者に響く文章の作成をサポート" },
