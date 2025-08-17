@@ -124,3 +124,4 @@ bundle exec rails test
 3. デプロイコマンドはkamal deployで実行してください。docker コンテナに入る必要はありません。また、bundleなどの接頭辞も不要です。
 4. デプロイで失敗となった場合、原因を究明し、問題だった箇所と、修正内容を出力してください。
 5. claudeが実装を行う場合、コードに手を加える前に、実装方針と実装内容を出力してください。
+6. specの実行は`docker compose exec app`でコンテナの中に入って`bundle exec rspec`で実行してください。
