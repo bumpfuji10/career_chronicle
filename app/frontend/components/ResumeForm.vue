@@ -8,7 +8,7 @@
       <p>どこで、どんな役割で働いていたかを教えてください</p>
 
       <label for="company">会社名<span class="required">*</span></label>
-      <input id="company" v-model="form.company" placeholder="株式会社キャリクロ" />
+      <input id="company" v-model="form.company" placeholder="例: 株式会社キャリクロ" />
 
       <label for="position">職種・役職<span class="required">*</span></label>
       <input id="position" v-model="form.position" placeholder="例: Webデザイナー/プロジェクトマネージャー" />
@@ -50,31 +50,39 @@
       <button @click="nextStep" class="base-btn base-btn__form">次へ</button>
     </div>
     <div v-else-if="step === 2" class="step">
-      <h2>Step 2: やったこと</h2>
-      <textarea v-model="form.tasks" />
+      <h2>やったことを入力してください</h2>
+      <p>具体的な業務内容や担当したプロジェクトなどを教えて下さい</p>
+      <label for="tasks">業務内容・プロジェクト<span class="required">*</span></label>
+      <textarea id="tasks" v-model="form.tasks" placeholder="例: Webサイトのデザインとコーディングを担当。クライアントとの打ち合わせから納品まで、一貫して対応。" />
       <div class="button-group">
         <button @click="prevStep" class="base-btn base-btn__white">戻る</button>
         <button @click="nextStep" class="base-btn base-btn__form">次へ</button>
       </div>
     </div>
     <div v-else-if="step === 3" class="step">
-      <h2>Step 3: 工夫したこと</h2>
-      <textarea v-model="form.improvements" />
+      <h2>工夫したことを入力してください</h2>
+      <p>業務における創意工夫や独自のアプローチなどを教えて下さい</p>
+      <label for="improvements">工夫・プロジェクトアプローチ<span class="required">*</span></label>
+      <textarea id="improvements" v-model="form.improvements" placeholder="例: デザイン効率化のため独自のコンポーネントライブラリを構築。チーム内での共有を促進するためのするためドキュメント整備にも注力。" />
       <div class="button-group">
         <button @click="prevStep" class="base-btn base-btn__white">戻る</button>
         <button @click="nextStep" class="base-btn base-btn__form">次へ</button>
       </div>
     </div>
     <div v-else-if="step === 4" class="step">
-      <h2>Step 4: 成果・実績</h2>
-      <textarea v-model="form.achievements" />
+      <h2>成果や実績を入力してください</h2>
+      <p>あなたの貢献によって生まれた具体的な成果を教えて下さい</p>
+      <label for="achievements">成果・実績<span class="required">*</span></label>
+      <textarea id="achievements" v-model="form.achievements" placeholder="リニューアルしたWebサイトのCVRが前年比150%に向上。制作期間を30%短縮し、年間で10件以上の追加案件を受注できるようになった。" />
       <div class="button-group">
         <button @click="prevStep" class="base-btn base-btn__white">戻る</button>
         <button @click="nextStep" class="base-btn base-btn__form">次へ</button>
       </div>
     </div>
     <div v-else-if="step === 5" class="step">
-      <h2>Step 5: 文章整形</h2>
+      <h2>文章を確認・編集してください</h2>
+      <p>これまで入力いただいた内容をもとに生成した文章を、必要に応じて編集することができます。</p>
+      <label for="summary">職務経歴書用テキスト<span class="required">*</span></label>
       <textarea v-model="summary" />
       <div class="button-group">
         <button @click="prevStep" class="base-btn base-btn__white">戻る</button>
