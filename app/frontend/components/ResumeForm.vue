@@ -2,7 +2,6 @@
   <div>
     <ProgressBar :step="step" :stepLabels="stepLabels" />
     
-    <!-- お祝いアニメーション -->
     <CelebrationAnimation :show="showCelebration" :resumeId="savedResumeId" @hide="handleCelebrationHide" />
 
     <div class="resume-form">
@@ -161,17 +160,9 @@ export default {
         
         if (response.ok) {
           const data = await response.json()
-          console.log('Response data:', data) // デバッグ用
-          
           this.summary = data.data.summary
-          this.savedResumeId = data.data.id
-          
-          console.log('Saved resume ID:', this.savedResumeId) // デバッグ用
-          console.log('Show celebration:', this.showCelebration) // デバッグ用
-          
-          // お祝いアニメーションを表示
+          this.savedResumeId = data.data.i
           this.showCelebration = true
-          console.log('Show celebration after set:', this.showCelebration) // デバッグ用
         } else {
           const errorData = await response.json()
           console.error('Save failed:', errorData)
