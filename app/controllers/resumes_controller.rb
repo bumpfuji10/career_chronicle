@@ -20,7 +20,7 @@ class ResumesController < ApplicationController
 
   def check_guest_resume_limit
     if @user.is_a?(Guest) && @user.resumes.exists?
-      redirect_to "/", alert: "ゲストユーザーは職務経歴書を1件までしか作成できません。アカウントの登録もしくはログインをしていただくことで2件目の作成が可能となっております。"
+      redirect_to root_path, alert: "ゲストユーザーは職務経歴書を1件までしか作成できません。アカウントの登録もしくはログインをしていただくことで2件目の作成が可能となっております。"
     end
   end
 
