@@ -10,10 +10,10 @@ module Api
         
         if resume.save
           generator = JsonResponseGenerator.new(resume, user: @user)
-          render json: generator.success, status: :created
+          render json: JSON.parse(generator.success), status: :created
         else
           generator = JsonResponseGenerator.new(resume)
-          render json: generator.error('保存に失敗しました', resume.errors.full_messages), status: :unprocessable_entity
+          render json: JSON.parse(generator.error('保存に失敗しました', resume.errors.full_messages)), status: :unprocessable_entity
         end
       end
 
