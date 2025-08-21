@@ -38,6 +38,7 @@ ja:
             password:
               blank: "パスワードを入力してください"
               too_short: "パスワードは8文字以上で入力してください"
+              too_long: "パスワードは12文字以内で入力してください"
         user:
           attributes:
             name:
@@ -49,6 +50,7 @@ ja:
             password:
               blank: "パスワードを入力してください"
               too_short: "パスワードは8文字以上で入力してください"
+              too_long: "パスワードは12文字以内で入力してください"
     attributes:
       member:
         name: "お名前"
