@@ -159,9 +159,9 @@ export default {
         })
         
         if (response.ok) {
-          const data = await response.json()
-          this.summary = data.data.summary
-          this.savedResumeId = data.data.i
+          const json_response = await response.json()
+          this.summary = json_response.data.summary
+          this.savedResumeId = json_response.data.id
           this.showCelebration = true
         } else {
           const errorData = await response.json()
