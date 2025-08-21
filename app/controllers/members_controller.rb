@@ -7,9 +7,11 @@ class MembersController < ApplicationController
   def create
     @member = Member.new(member_params)
     if @member.save
-      session[:member_id] = @member.id
-      redirect_to root_path, notice: "ユーザー登録が完了しました。"
+      session[:user_id] = @member.id
+      flash[:notice] = "ユーザー登録が完了しました。"
+      redirect_to root_path
     else
+      flash.now[:alert] = @member.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end

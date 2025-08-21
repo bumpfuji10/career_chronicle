@@ -106,6 +106,7 @@ const removeToast = (id) => {
     color: #374151;
     font-size: 14px;
     line-height: 1.5;
+    word-break: break-word;
   }
   
   &__close {
