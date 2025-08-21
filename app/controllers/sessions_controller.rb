@@ -4,8 +4,8 @@ class SessionsController < ApplicationController
   def create
     member = Member.authenticate_by(email: params[:email], password: params[:password])
 
-    if user
-      session[:user_id] = user.id
+    if member
+      session[:user_id] = member.id
       flash[:notice] = "ログインしました。"
       redirect_to root_path
     else
