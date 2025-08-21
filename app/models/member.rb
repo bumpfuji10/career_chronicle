@@ -8,4 +8,5 @@ class Member < User
   validates :password, presence: true,
                       length: { minimum: 8 },
                       on: :create
+  has_secure_password
 end
