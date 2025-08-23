@@ -45,8 +45,8 @@ export default {
       const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#a55eea']
       const color = colors[index % colors.length]
       const left = Math.random() * 100
-      const animationDelay = Math.random() * 3
-      const animationDuration = 5 + Math.random() * 3
+      const animationDelay = Math.random() * 0.5 // 0～0.5秒のランダムな遅延
+      const animationDuration = 2 + Math.random() * 2 // 2～4秒のランダムな落下時間
       
       return {
         left: `${left}%`,

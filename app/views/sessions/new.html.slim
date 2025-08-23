@@ -1,9 +1,9 @@
-= form_with model: @user, local: true do |form|
+= form_with url: login_path, local: true do |form|
   img.hero-icon(src="/images/career_chronicle.png", alt="キャリクロ！")
   p.base-txt 5ステップで職務経歴書を簡単作成
 
   .userForm
-    #AuthTab
+    #AuthTab(data-active-tab="login")
     .field
       = form.label :email, "メールアドレス"
       = form.email_field :email
