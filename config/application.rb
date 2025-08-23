@@ -41,5 +41,8 @@ module Myapp
     
     # Disable host checking in test and development
     config.hosts.clear if Rails.env.test? || Rails.env.development?
+    
+    # Set default locale to Japanese
+    config.i18n.default_locale = :ja
   end
 end

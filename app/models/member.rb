@@ -4,7 +4,7 @@ class Member < User
   validates :name, presence: true
   validates :email, presence: true,
                     uniqueness: true,
-                    format: { with: EMAIL_REGEX, message: "正しいメールアドレスを入力してください。" }
+                    format: { with: EMAIL_REGEX }
   validates :password, presence: true,
                       length: { minimum: 8 },
                       on: :create

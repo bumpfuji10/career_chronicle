@@ -67,7 +67,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (message) {
           // Rails flashのタイプをトーストのタイプにマッピング
           const toastType = type === 'notice' ? 'success' : type === 'alert' ? 'error' : 'info'
-          toastStore.addToast(message, toastType)
+          
+          // messageが配列の場合は各メッセージを個別に表示
+          if (Array.isArray(message)) {
+            message.forEach(msg => {
+              if (msg) {
+                toastStore.addToast(msg, toastType)
+              }
+            })
+          } else {
+            toastStore.addToast(message, toastType)
+          }
         }
       })
     })

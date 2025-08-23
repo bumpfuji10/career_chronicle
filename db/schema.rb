@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_14_141205) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_21_235552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "resumes", force: :cascade do |t|
-    t.string "company"
-    t.string "position"
-    t.text "tasks"
-    t.text "improvements"
-    t.text "achievements"
-    t.text "summary"
+    t.string "company", null: false
+    t.string "position", null: false
+    t.text "tasks", null: false
+    t.text "improvements", null: false
+    t.text "achievements", null: false
+    t.text "summary", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
