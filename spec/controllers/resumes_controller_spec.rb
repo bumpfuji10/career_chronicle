@@ -33,8 +33,10 @@ RSpec.describe ResumesController, type: :controller do
               position: 'エンジニア',
               tasks: '開発業務',
               improvements: '改善活動',
-              achievements: '成果'
+              achievements: '成果',
+              summary: '私は既存の会社でエンジニアとして、開発業務。その中で改善活動。結果として成果。'
             )
+
           end
 
           it 'トップページにリダイレクトされる' do
@@ -70,7 +72,8 @@ RSpec.describe ResumesController, type: :controller do
                 position: 'エンジニア',
                 tasks: '開発業務',
                 improvements: '改善活動',
-                achievements: '成果'
+                achievements: '成果',
+                summary: "私は会社#{i+1}でエンジニアとして、開発業務。その中で改善活動。結果として成果。"
               )
             end
           end
@@ -108,7 +111,8 @@ RSpec.describe ResumesController, type: :controller do
               position: 'エンジニア',
               tasks: '開発業務',
               improvements: '改善活動',
-              achievements: '成果'
+              achievements: '成果',
+              summary: '私は既存の会社でエンジニアとして、開発業務。その中で改善活動。結果として成果。'
             )
           end
 
@@ -137,7 +141,8 @@ RSpec.describe ResumesController, type: :controller do
                 position: 'エンジニア',
                 tasks: '開発業務',
                 improvements: '改善活動',
-                achievements: '成果'
+                achievements: '成果',
+                summary: "私は会社#{i+1}でエンジニアとして、開発業務。その中で改善活動。結果として成果。"
               )
             end
           end
@@ -197,7 +202,8 @@ RSpec.describe ResumesController, type: :controller do
             position: 'エンジニア',
             tasks: '開発業務',
             improvements: '改善活動',
-            achievements: '成果'
+            achievements: '成果',
+            summary: '私はゲスト時代の会社でエンジニアとして、開発業務。その中で改善活動。結果として成果。'
           )
           
           # その後、会員にアップグレード（会員としてログイン）
@@ -225,7 +231,8 @@ RSpec.describe ResumesController, type: :controller do
         position: 'エンジニア',
         tasks: '開発業務',
         improvements: '改善活動',
-        achievements: '成果'
+        achievements: '成果',
+        summary: '私はゲストの会社でエンジニアとして、開発業務。その中で改善活動。結果として成果。'
       )
     end
     let!(:member_resume) do
@@ -235,7 +242,8 @@ RSpec.describe ResumesController, type: :controller do
         position: 'デザイナー',
         tasks: 'デザイン業務',
         improvements: 'UI改善',
-        achievements: 'UX向上'
+        achievements: 'UX向上',
+        summary: '私は会員の会社でデザイナーとして、デザイン業務。その中でUI改善。結果としてUX向上。'
       )
     end
 
@@ -277,7 +285,8 @@ RSpec.describe ResumesController, type: :controller do
             position: 'マネージャー',
             tasks: '管理業務',
             improvements: 'プロセス改善',
-            achievements: '効率化'
+            achievements: '効率化',
+            summary: '私は他のゲストの会社でマネージャーとして、管理業務。その中でプロセス改善。結果として効率化。'
           )
         end
 
