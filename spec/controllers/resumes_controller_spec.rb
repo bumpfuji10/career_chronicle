@@ -96,4 +96,49 @@ RSpec.describe ResumesController, type: :controller do
       end
     end
   end
+
+  describe "#new" do
+    context "ゲストユーザー" do
+      let(:guest) {
+        guest_token = SecureRandom.hex(16)
+        FactoryBot.create(:guest_user, session_token: guest_token)
+      }
+      let(:guest_session_data) do
+        {
+          guest_user_token: guest.session_token,
+          guest_user_expires_at: 1.week.from_now.iso8601
+        }
+      end
+      before do
+        session[:guest_user_id] = guest.id
+      end
+      context "初めて職務経歴書を作成する場合" do
+        it "アクセスが成功すること" do
+          get :new
+          expect(response.status).to eq 200
+        end
+      end
+
+      context "既に職務経歴書を作成済みの場合" do
+        let!(:resume) {
+          FactoryBot.create(:resume, user_id: guest.id)
+        }
+        it "アクセスが失敗すること" do
+          get :new, session: guest_session_data
+          expect(response.status).to eq 302
+        end
+      end
+    end
+
+    context "メンバー" do
+      let(:member) { FactoryBot.create(:registered_user) }
+      before do
+        session[:user_id] = member.id
+      end
+      it "アクセスが成功すること" do
+        get :new
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
