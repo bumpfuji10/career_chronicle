@@ -24,7 +24,7 @@ module Api
       end
 
       def resume_params
-        params.require(:resume).permit(:company, :position, :tasks, :improvements, :achievements)
+        params.require(:resume).permit(:company, :position, :tasks, :improvements, :achievements, :start_at, :end_at)
       end
     end
   end

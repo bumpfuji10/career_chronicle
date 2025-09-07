@@ -5,6 +5,7 @@ class Resume < ApplicationRecord
   validates :improvements, presence: true
   validates :achievements, presence: true
   validates :summary, presence: true
+  validates :start_at, presence: true
 
   belongs_to :user
 
