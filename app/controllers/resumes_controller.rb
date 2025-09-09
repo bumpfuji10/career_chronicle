@@ -8,6 +8,10 @@ class ResumesController < ApplicationController
 
   def show; end
 
+  def index
+    @resumes = @user.resumes
+  end
+
   private
 
   def set_user
@@ -29,6 +33,6 @@ class ResumesController < ApplicationController
   end
 
   def set_resume
-    @resume = Resume.find(params[:id])
+    @resume = Resume.find_by!(id: params[:id])
   end
 end

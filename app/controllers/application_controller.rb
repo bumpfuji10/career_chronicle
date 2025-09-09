@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   helper_method :current_member, :logged_in?
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
 
   private
 
@@ -13,5 +15,11 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !!current_member
+  end
+
+  def render_not_found
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: "職務経歴書が見つかりませんでした" }
+    end
   end
 end
