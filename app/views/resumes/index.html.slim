@@ -1,0 +1,31 @@
+.resumes-container
+  .container-header
+    .header-actions
+      = link_to new_resume_path, class: "add-button" do
+        svg.add-icon(width="20" height="20" viewBox="0 0 20 20" fill="none")
+          path(d="M10 5v10M5 10h10" stroke="currentColor" stroke-width="2" stroke-linecap="round")
+        span 新しい経歴を追加
+  
+  .cards-container
+    - @resumes.each do |resume|
+      .career-card
+        
+        .card-content
+          .card-header
+            h2.company-title= resume.company
+            p.position-tag= resume.position
+          
+          .card-details
+            .detail-block
+              .detail-label 業務内容
+              .detail-text= truncate(resume.tasks, length: 80)
+            
+            .detail-block
+              .detail-label 成果・改善
+              .detail-text= truncate(resume.improvements, length: 80)
+        
+        .card-actions
+          = link_to resume_path(resume), class: "action-button view-btn" do
+            span 詳細を見る
+            svg.arrow-icon(width="16" height="16" viewBox="0 0 16 16" fill="none")
+              path(d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
