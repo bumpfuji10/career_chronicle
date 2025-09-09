@@ -56,3 +56,5 @@ node_modules
 
 # Claude Code local configuration
 CLAUDE.local.md
+
+.vscode/
