@@ -68,6 +68,82 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 2rem;
+
+    .empty-container {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      background: white;
+      border-radius: 24px;
+      border: 1px solid #f2f2f2;
+      text-align: center;
+      min-height: 400px;
+
+      .empty-icon {
+        margin-bottom: 2rem;
+        animation: float 3s ease-in-out infinite;
+        
+        svg {
+          filter: drop-shadow(0 10px 40px rgba(72, 104, 150, 0.2));
+        }
+      }
+
+      .empty-message {
+        margin-bottom: 2.5rem;
+
+        .empty-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #666;
+          margin: 0 0 0.75rem 0;
+        }
+
+        .empty-subtitle {
+          font-size: 1rem;
+          color: #999;
+          margin: 0;
+          font-weight: 400;
+        }
+      }
+
+      .empty-action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 10px 20px;
+        background-color: #486896;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        border: 1px solid #486896;
+        font-weight: normal;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken(#486896, 10%);
+          color: white;
+        }
+
+        .add-icon {
+          transition: transform 0.3s ease;
+        }
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
   }
 
   .career-card {
@@ -207,6 +283,31 @@
     .cards-container {
       grid-template-columns: 1fr;
       gap: 1.5rem;
+
+      .empty-container {
+        padding: 3rem 1.5rem;
+        min-height: 350px;
+
+        .empty-icon svg {
+          width: 100px;
+          height: 100px;
+        }
+
+        .empty-message {
+          .empty-title {
+            font-size: 1.5rem;
+          }
+
+          .empty-subtitle {
+            font-size: 1rem;
+          }
+        }
+
+        .empty-action-btn {
+          padding: 0.875rem 2rem;
+          font-size: 0.95rem;
+        }
+      }
     }
   }
 }

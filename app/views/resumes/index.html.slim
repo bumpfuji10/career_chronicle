@@ -8,7 +8,16 @@
   
   .cards-container
     - if @resumes.empty?
-      .empty-container(style="border: 1px solid #f2f2f2; border-radius: 8px;") hoge
+      .empty-container
+        .empty-icon
+          = render 'empty_icon'
+        .empty-message
+          h3.empty-title まだ職務経歴書を作成していません
+          p.empty-subtitle 転職への一歩を踏み出しましょう！
+        = link_to new_resume_path, class: "empty-action-btn" do
+          svg.add-icon(width="20" height="20" viewBox="0 0 20 20" fill="none")
+            path(d="M10 5v10M5 10h10" stroke="currentColor" stroke-width="2" stroke-linecap="round")
+          span 最初の経歴を追加する
 
     - @resumes.each do |resume|
       .career-card
