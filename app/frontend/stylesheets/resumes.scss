@@ -43,25 +43,21 @@
       align-items: center;
       gap: 0.75rem;
       padding: 1rem 2rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #486896 0%, #5a7db8 100%);
       color: white;
       text-decoration: none;
       border-radius: 50px;
       font-weight: 600;
       transition: all 0.3s ease;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 10px 30px rgba(72, 104, 150, 0.3);
 
       &:hover {
         transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 15px 40px rgba(72, 104, 150, 0.4);
       }
 
       .add-icon {
         transition: transform 0.3s ease;
-      }
-
-      &:hover .add-icon {
-        transform: rotate(90deg);
       }
     }
   }
@@ -75,40 +71,19 @@
   }
 
   .career-card {
-    background: linear-gradient(135deg, #1e2139 0%, #13172b 100%);
+    background: linear-gradient(135deg, #2a3a52 0%, #1c2636 100%);
     border-radius: 24px;
     padding: 2rem;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(72, 104, 150, 0.15);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     overflow: hidden;
 
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(
-        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(102, 126, 234, 0.15) 0%,
-        transparent 60%
-      );
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
     &:hover {
       transform: translateY(-10px);
-      border-color: rgba(102, 126, 234, 0.3);
-      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2),
-        0 0 120px rgba(102, 126, 234, 0.1);
-
-      &::before {
-        opacity: 1;
-      }
+      border-color: rgba(72, 104, 150, 0.4);
+      box-shadow: 0 20px 60px rgba(72, 104, 150, 0.25),
+        0 0 120px rgba(72, 104, 150, 0.15);
     }
 
     .card-badge {
@@ -138,8 +113,8 @@
         .position-tag {
           display: inline-block;
           padding: 0.5rem 1rem;
-          background: rgba(102, 126, 234, 0.1);
-          border: 1px solid rgba(102, 126, 234, 0.3);
+          background: rgba(72, 104, 150, 0.15);
+          border: 1px solid rgba(72, 104, 150, 0.35);
           border-radius: 8px;
           color: #a8b2d1;
           font-size: 0.9rem;
@@ -157,7 +132,7 @@
           .detail-label {
             font-size: 0.75rem;
             font-weight: 600;
-            color: #667eea;
+            color: #6b8bb9;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 0.5rem;
@@ -193,21 +168,12 @@
         overflow: hidden;
 
         &.view-btn {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #486896 0%, #5a7db8 100%);
           color: white;
           border: none;
 
           &:hover {
             transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-
-            .arrow-icon {
-              transform: translateX(3px);
-            }
-          }
-
-          .arrow-icon {
-            transition: transform 0.3s ease;
           }
         }
       }

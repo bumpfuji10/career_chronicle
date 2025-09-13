@@ -1,5 +1,6 @@
 class ResumesController < ApplicationController
   before_action :set_user
+  before_action :deny_guest_access!
   before_action :check_guest_resume_limit, only: [:new]
   before_action :set_resume, only: [:show]
   before_action :authorize_resume!, only: [:show]
@@ -18,6 +19,12 @@ class ResumesController < ApplicationController
     @user = current_member || current_guest
   end
 
+  def deny_guest_access!
+    if @user.is_a?(Guest)
+      raise UnauthorizedError
+    end
+  end
+
   def check_guest_resume_limit
     if @user.is_a?(Guest) && @user.resumes.exists?
       redirect_to root_path, alert: "ゲストユーザーは職務経歴書を1件までしか作成できません。アカウントの登録もしくはログインをしていただくことで2件目の作成が可能となっております。"
@@ -28,7 +35,7 @@ class ResumesController < ApplicationController
     resume_owner_id = current_member&.id || current_guest&.id
 
     if resume_owner_id != @resume.user_id 
-      redirect_to root_path, alert: "アクセス権限がありません"
+      raise UnauthorizedError
     end
   end
 
