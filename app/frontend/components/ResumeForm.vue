@@ -1,109 +1,67 @@
 <template>
   <div>
     <ProgressBar :step="step" :stepLabels="stepLabels" />
-    
-    <CelebrationAnimation :show="showCelebration" :resumeId="savedResumeId" @hide="handleCelebrationHide" />
+
+    <CelebrationAnimation
+      :show="showCelebration"
+      :resumeId="savedResumeId"
+      @hide="handleCelebrationHide"
+    />
 
     <div class="resume-form">
       <div v-if="step === 1" class="step">
-        <h2>会社名と役職を入力してください</h2>
-        <p>どこで、どんな役割で働いていたかを教えてください</p>
-
-        <label for="company">会社名<span class="required">*</span></label>
-        <input id="company" v-model="form.company" placeholder="例: 株式会社キャリクロ" />
-
-        <label for="position">職種・役職<span class="required">*</span></label>
-        <input id="position" v-model="form.position" placeholder="例: Webデザイナー/プロジェクトマネージャー" />
-
-        <div class="date-fields-container">
-          <div class="date-field">
-            <label for="start_at">開始日<span class="required">*</span></label>
-            <input 
-              id="start_at" 
-              type="date" 
-              v-model="form.start_at"
-              placeholder="開始日を選択"
-            />
-          </div>
-
-          <div class="date-field">
-            <label for="end_at">終了日<span v-if="!form.is_current" class="required">*</span></label>
-            <input 
-              id="end_at" 
-              type="date" 
-              v-model="form.end_at"
-              :disabled="form.is_current"
-              :required="!form.is_current"
-              placeholder="終了日を選択"
-            />
-          </div>
-        </div>
-
-        <div class="checkbox-wrapper">
-          <input 
-            id="is_current" 
-            type="checkbox" 
-            v-model="form.is_current"
-            @change="handleCurrentJobChange"
-          />
-          <label for="is_current" class="checkbox-label">現在この職場で勤務中</label>
-        </div>
-
-        <button @click="nextStep" class="base-btn base-btn__form">次へ</button>
+        <CompanyForm :form="form" @nextStep="nextStep" />
       </div>
       <div v-else-if="step === 2" class="step">
-        <h2>やったことを入力してください</h2>
-        <p>具体的な業務内容や担当したプロジェクトなどを教えて下さい</p>
-        <label for="tasks">業務内容・プロジェクト<span class="required">*</span></label>
-        <textarea id="tasks" v-model="form.tasks" placeholder="例: Webサイトのデザインとコーディングを担当。クライアントとの打ち合わせから納品まで、一貫して対応。" />
-        <div class="button-group">
-          <button @click="prevStep" class="base-btn base-btn__white">戻る</button>
-          <button @click="nextStep" class="base-btn base-btn__form">次へ</button>
-        </div>
+        <RoleProjectForm
+          :form="form"
+          @nextStep="nextStep"
+          @prevStep="prevStep"
+        />
       </div>
       <div v-else-if="step === 3" class="step">
-        <h2>工夫したことを入力してください</h2>
-        <p>業務における創意工夫や独自のアプローチなどを教えて下さい</p>
-        <label for="improvements">工夫・プロジェクトアプローチ<span class="required">*</span></label>
-        <textarea id="improvements" v-model="form.improvements" placeholder="例: デザイン効率化のため独自のコンポーネントライブラリを構築。チーム内での共有を促進するためのするためドキュメント整備にも注力。" />
-        <div class="button-group">
-          <button @click="prevStep" class="base-btn base-btn__white">戻る</button>
-          <button @click="nextStep" class="base-btn base-btn__form">次へ</button>
-        </div>
+        <ApproachForm :form="form" @nextStep="nextStep" @prevStep="prevStep" />
       </div>
       <div v-else-if="step === 4" class="step">
-        <h2>成果や実績を入力してください</h2>
-        <p>あなたの貢献によって生まれた具体的な成果を教えて下さい</p>
-        <label for="achievements">成果・実績<span class="required">*</span></label>
-        <textarea id="achievements" v-model="form.achievements" placeholder="リニューアルしたWebサイトのCVRが前年比150%に向上。制作期間を30%短縮し、年間で10件以上の追加案件を受注できるようになった。" />
-        <div class="button-group">
-          <button @click="prevStep" class="base-btn base-btn__white">戻る</button>
-          <button @click="nextStep" class="base-btn base-btn__form">次へ</button>
-        </div>
+        <AchievementForm
+          :form="form"
+          @nextStep="nextStep"
+          @prevStep="prevStep"
+        />
       </div>
       <div v-else-if="step === 5" class="step">
-        <h2>文章を確認・編集してください</h2>
-        <p>これまで入力いただいた内容をもとに生成した文章を、必要に応じて編集することができます。</p>
-        <label for="summary">職務経歴書用テキスト<span class="required">*</span></label>
-        <textarea v-model="summary" />
-        <div class="button-group">
-          <button @click="prevStep" class="base-btn base-btn__white">戻る</button>
-          <button @click="submitForm" class="base-btn base-btn__form">保存</button>
-        </div>
+        <SummaryForm
+          :form="form"
+          @submit="submit"
+          @prevStep="prevStep"
+          @celebration="turnOnShowCelebration"
+          @savedResumeId="onSavedResumeId"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProgressBar from './ProgressBar.vue'
-import CelebrationAnimation from './CelebrationAnimation.vue'
+import ProgressBar from "./ProgressBar.vue";
+import CelebrationAnimation from "./CelebrationAnimation.vue";
+
+import CompanyForm from "./Resume/CompanyForm.vue";
+import RoleProjectForm from "./Resume/RoleProjectForm.vue";
+import ApproachForm from "./Resume/ApproachForm.vue";
+import AchievementForm from "./Resume/AchievementForm.vue";
+import SummaryForm from "./Resume/SummaryForm.vue";
 
 export default {
-  name: 'ResumeForm',
+  name: "ResumeForm",
   components: {
     ProgressBar,
-    CelebrationAnimation
+    CelebrationAnimation,
+    CompanyForm,
+    RoleProjectForm,
+    ApproachForm,
+    AchievementForm,
+    SummaryForm,
   },
   data() {
     return {
@@ -112,73 +70,60 @@ export default {
       showCelebration: false,
       savedResumeId: null,
       form: {
-        company: '',
-        position: '',
-        start_at: '',
-        end_at: '',
+        company: "",
+        position: "",
+        start_at: "",
+        end_at: "",
         is_current: false,
-        tasks: '',
-        improvements: '',
-        achievements: ''
+        tasks: "",
+        improvements: "",
+        achievements: "",
       },
-      summary: '',
-      stepLabels: ['基本情報', 'やったこと', '工夫したこと', '成果・実績', '文章整形']
-    }
+      summary: "",
+      stepLabels: [
+        "基本情報",
+        "やったこと",
+        "工夫したこと",
+        "成果・実績",
+        "文章整形",
+      ],
+    };
   },
   methods: {
     handleCelebrationHide() {
-      this.showCelebration = false
-      this.done = true
+      this.showCelebration = false;
+      this.done = true;
     },
     handleCurrentJobChange() {
       if (this.form.is_current) {
-        this.form.end_at = ''
+        this.form.end_at = "";
       }
     },
     nextStep() {
       if (this.step < 5) {
-        this.step++
+        this.step++;
         if (this.step === 5) {
-          this.summary = `私は${this.form.company}で${this.form.position}として、${this.form.tasks}。その中で${this.form.improvements}。結果として${this.form.achievements}。`
+          this.summary = `私は${this.form.company}で${this.form.position}として、${this.form.tasks}。その中で${this.form.improvements}。結果として${this.form.achievements}。`;
         }
       }
     },
     prevStep() {
       if (this.step > 1) {
-        this.step--
+        this.step--;
       }
     },
-    async submitForm() {
-      try {
-        const response = await fetch('/api/v1/resumes', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ resume: { ...this.form } })
-        })
-        
-        if (response.ok) {
-          const json_response = await response.json()
-          this.summary = json_response.data.summary
-          this.savedResumeId = json_response.data.id
-          this.showCelebration = true
-        } else {
-          const errorData = await response.json()
-          console.error('Save failed:', errorData)
-          alert('保存に失敗しました')
-        }
-      } catch (error) {
-        console.error('Error in submitForm:', error)
-        alert('保存中にエラーが発生しました')
-      }
-    }
-  }
-}
+    turnOnShowCelebration() {
+      this.showCelebration = true;
+    },
+    onSavedResumeId(resumeId) {
+      this.savedResumeId = resumeId;
+    },
+  },
+};
 </script>
 
-<style scoped>
-@import '../stylesheets/base.scss';
+<style>
+@import "../stylesheets/base.scss";
 .resume-form {
   max-width: 600px;
   margin: 0 auto;

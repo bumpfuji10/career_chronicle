@@ -1,0 +1,313 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+.resumes-container {
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  .container-header {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    .main-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+
+      .title-ja {
+        background: linear-gradient(135deg, #fff 0%, #8b92b9 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .title-accent {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 2.5rem;
+      }
+    }
+
+    .add-button {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #486896 0%, #5a7db8 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(72, 104, 150, 0.3);
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(72, 104, 150, 0.4);
+      }
+
+      .add-icon {
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+
+  .cards-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+
+    .empty-container {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      background: white;
+      border-radius: 24px;
+      border: 1px solid #f2f2f2;
+      text-align: center;
+      min-height: 400px;
+
+      .empty-icon {
+        margin-bottom: 2rem;
+        animation: float 3s ease-in-out infinite;
+        
+        svg {
+          filter: drop-shadow(0 10px 40px rgba(72, 104, 150, 0.2));
+        }
+      }
+
+      .empty-message {
+        margin-bottom: 2.5rem;
+
+        .empty-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #666;
+          margin: 0 0 0.75rem 0;
+        }
+
+        .empty-subtitle {
+          font-size: 1rem;
+          color: #999;
+          margin: 0;
+          font-weight: 400;
+        }
+      }
+
+      .empty-action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 10px 20px;
+        background-color: #486896;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        border: 1px solid #486896;
+        font-weight: normal;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken(#486896, 10%);
+          color: white;
+        }
+
+        .add-icon {
+          transition: transform 0.3s ease;
+        }
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+  }
+
+  .career-card {
+    background: linear-gradient(135deg, #2a3a52 0%, #1c2636 100%);
+    border-radius: 24px;
+    padding: 2rem;
+    position: relative;
+    border: 1px solid rgba(72, 104, 150, 0.15);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-10px);
+      border-color: rgba(72, 104, 150, 0.4);
+      box-shadow: 0 20px 60px rgba(72, 104, 150, 0.25),
+      0 0 120px rgba(72, 104, 150, 0.15);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .card-content {
+      margin-bottom: 1.5rem;
+
+      .card-header {
+        margin-bottom: 1.5rem;
+
+        .company-title {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: #ffffff;
+          margin: 0 0 0.5rem 0;
+          line-height: 1.2;
+        }
+
+        .position-tag {
+          display: inline-block;
+          padding: 0.5rem 1rem;
+          background: rgba(72, 104, 150, 0.15);
+          border: 1px solid rgba(72, 104, 150, 0.35);
+          border-radius: 8px;
+          color: #a8b2d1;
+          font-size: 0.9rem;
+          font-weight: 500;
+          margin: 0;
+        }
+      }
+
+      .card-details {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+
+        .detail-block {
+          .detail-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6b8bb9;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+          }
+
+          .detail-text {
+            color: #8892b0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+          }
+        }
+      }
+    }
+
+    .card-actions {
+      display: flex;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+      .action-button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.875rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        &.view-btn {
+          background: linear-gradient(135deg, #486896 0%, #5a7db8 100%);
+          color: white;
+          border: none;
+
+          &:hover {
+            transform: scale(1.02);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .resumes-container {
+    padding: 1rem;
+
+    .container-header {
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: flex-start;
+
+      .main-title {
+        font-size: 2rem;
+
+        .title-accent {
+          font-size: 1.75rem;
+        }
+      }
+
+      .add-button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .cards-container {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+
+      .empty-container {
+        padding: 3rem 1.5rem;
+        min-height: 350px;
+
+        .empty-icon svg {
+          width: 100px;
+          height: 100px;
+        }
+
+        .empty-message {
+          .empty-title {
+            font-size: 1.5rem;
+          }
+
+          .empty-subtitle {
+            font-size: 1rem;
+          }
+        }
+
+        .empty-action-btn {
+          padding: 0.875rem 2rem;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+}
