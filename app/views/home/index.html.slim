@@ -22,8 +22,10 @@
     - else
       .home__hero__startButton
         = link_to(new_resume_path, class: "base-btn") do
-          | 履歴書を作成する
+          | 経歴書を作成する
           #ArrowRightIcon
+        = link_to(resumes_path, class: "base-btn base-btn__white") do
+          | 作成した経歴書を確認する
 
   .home__features
     - @home_features.each do |feature|

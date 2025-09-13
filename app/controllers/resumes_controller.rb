@@ -1,5 +1,6 @@
 class ResumesController < ApplicationController
   before_action :set_user
+  before_action :deny_guest_access!
   before_action :check_guest_resume_limit, only: [:new]
   before_action :set_resume, only: [:show]
   before_action :authorize_resume!, only: [:show]
@@ -8,10 +9,20 @@ class ResumesController < ApplicationController
 
   def show; end
 
+  def index
+    @resumes = @user.resumes
+  end
+
   private
 
   def set_user
     @user = current_member || current_guest
+  end
+
+  def deny_guest_access!
+    if @user.is_a?(Guest)
+      raise UnauthorizedError
+    end
   end
 
   def check_guest_resume_limit
@@ -24,11 +35,11 @@ class ResumesController < ApplicationController
     resume_owner_id = current_member&.id || current_guest&.id
 
     if resume_owner_id != @resume.user_id 
-      redirect_to root_path, alert: "アクセス権限がありません"
+      raise UnauthorizedError
     end
   end
 
   def set_resume
-    @resume = Resume.find(params[:id])
+    @resume = Resume.find_by!(id: params[:id])
   end
 end
