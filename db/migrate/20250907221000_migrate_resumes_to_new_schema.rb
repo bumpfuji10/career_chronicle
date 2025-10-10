@@ -58,6 +58,12 @@ class MigrateResumesToNewSchema < ActiveRecord::Migration[7.1]
   end
 
   def down
+    # 外部キー制約を考慮して、子から親の順に削除
+    ExperienceSummary.destroy_all
+    Achievement.destroy_all
+    Improvement.destroy_all
+    Task.destroy_all
+    WorkExperience.destroy_all
     CareerProfile.destroy_all
   end
 end
