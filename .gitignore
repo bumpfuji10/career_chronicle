@@ -56,6 +56,13 @@ node_modules
 
 # Claude Code local configuration
 CLAUDE.local.md
+.claude/settings.local.json
 
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+
+# JetBrains IDEs (RubyMine, IntelliJ IDEA, etc.)
+.idea/
+*.iml
