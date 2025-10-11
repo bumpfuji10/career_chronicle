@@ -10,7 +10,7 @@ class ResumesController < ApplicationController
   def show; end
 
   def index
-    @resumes = @user.resumes
+    @resumes = @user.resume
   end
 
   private
@@ -26,7 +26,7 @@ class ResumesController < ApplicationController
   end
 
   def check_guest_resume_limit
-    if @user.is_a?(Guest) && @user.resumes.exists?
+    if @user.is_a?(Guest) && @user.resume.present?
       redirect_to root_path, alert: "ゲストユーザーは職務経歴書を1件までしか作成できません。アカウントの登録もしくはログインをしていただくことで2件目の作成が可能となっております。"
     end
   end

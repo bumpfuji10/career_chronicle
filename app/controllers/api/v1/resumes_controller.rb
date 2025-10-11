@@ -5,7 +5,7 @@ module Api
       before_action :ensure_user, only: [:create]
 
       def create
-        resume = @user.resumes.build(resume_params)
+        resume = @user.resume.build(resume_params)
         resume.summary = resume.generate_summary
         
         if resume.save
