@@ -1,10 +1,22 @@
 {
+  "rubyLsp.enabled": true,
+  "rubyLsp.useBundler": true,
+  "rubyLsp.bundleGemfile": "/rails/Gemfile",
   "rubyLsp.rubyVersionManager": {
     "identifier": "none"
   },
+  "rubyLsp.formatter": "auto",
+  "rubyLsp.enableExperimentalFeatures": true,
+
+  // 他のRuby拡張機能を無効化
+  "solargraph.useBundler": false,
+  "ruby.useLanguageServer": false,
+  "ruby.intellisense": false,
 
   // エディタ設定
   "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.semanticHighlighting.enabled": true,
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   }

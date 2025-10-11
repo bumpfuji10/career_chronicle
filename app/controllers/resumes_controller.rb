@@ -1,6 +1,6 @@
 class ResumesController < ApplicationController
   before_action :set_user
-  before_action :deny_guest_access!
+  before_action :deny_guest_access!, except: [:new, :show]
   before_action :check_guest_resume_limit, only: [:new]
   before_action :set_resume, only: [:show]
   before_action :authorize_resume!, only: [:show]
@@ -34,7 +34,7 @@ class ResumesController < ApplicationController
   def authorize_resume!
     resume_owner_id = current_member&.id || current_guest&.id
 
-    if resume_owner_id != @resume.user_id 
+    if resume_owner_id != @resume.user_id
       raise UnauthorizedError
     end
   end
