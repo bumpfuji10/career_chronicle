@@ -1,6 +1,6 @@
 class ResumesController < ApplicationController
   before_action :set_user
-  before_action :deny_guest_access!, except: [:new]
+  before_action :deny_guest_access!, except: [:new, :show]
   before_action :check_guest_resume_limit, only: [:new]
   before_action :set_resume, only: [:show]
   before_action :authorize_resume!, only: [:show]

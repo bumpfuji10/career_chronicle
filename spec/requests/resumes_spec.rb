@@ -48,4 +48,24 @@ RSpec.describe "職務経歴書", type: :request do
       end
     end
   end
+
+  describe "GET /resumes/:id" do
+    context "セッションにゲストユーザーが既に存在する場合" do
+      let!(:guest) { FactoryBot.create(:guest_user) }
+      let!(:resume) { FactoryBot.create(:resume, user: guest) }
+
+      before do
+        # ProvideGuestUserをスタブして、既存のゲストユーザーを返すようにする
+        allow_any_instance_of(ProvideGuestUser).to receive(:call).and_return(guest)
+      end
+
+      context "ゲストユーザーが経歴書を作成済みの場合" do
+        it "アクセス可能" do
+          get resume_path(resume)
+
+          expect(response).to have_http_status(:success)
+        end
+      end
+    end
+  end
 end
