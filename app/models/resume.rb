@@ -1,15 +1,6 @@
 class Resume < ApplicationRecord
-  validates :company, presence: true
-  validates :position, presence: true
-  validates :tasks, presence: true
-  validates :improvements, presence: true
-  validates :achievements, presence: true
-  validates :summary, presence: true
-  validates :start_at, presence: true
-
   belongs_to :user
+  has_many :companies, dependent: :destroy
 
-  def generate_summary
-    "私は#{company}で#{position}として、#{tasks}。その中で#{improvements}。結果として#{achievements}。"
-  end
+  validates :user_id, presence: true, uniqueness: true
 end
