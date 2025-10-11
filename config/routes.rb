@@ -15,6 +15,17 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :resumes, only: [:create]
+      resources :career_profiles, only: [:create, :show] do
+        resources :work_experiences, only: [:create, :show, :update] do
+          resources :tasks, only: [:create, :update, :destroy]
+          resources :improvements, only: [:create, :update, :destroy]
+          resources :achievements, only: [:create, :update, :destroy]
+
+          member do
+            post :generate_summary
+          end
+        end
+      end
     end
   end
 end
