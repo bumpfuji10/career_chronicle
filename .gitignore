@@ -56,6 +56,7 @@ node_modules
 
 # Claude Code local configuration
 CLAUDE.local.md
+.claude/settings.local.json
 
 .vscode/*
 !.vscode/extensions.json
