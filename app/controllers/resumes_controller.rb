@@ -34,7 +34,7 @@ class ResumesController < ApplicationController
   def authorize_resume!
     resume_owner_id = current_member&.id || current_guest&.id
 
-    if resume_owner_id != @resume.user_id 
+    if resume_owner_id != @resume.user_id
       raise UnauthorizedError
     end
   end
