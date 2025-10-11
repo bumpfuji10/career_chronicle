@@ -9,10 +9,75 @@
     "vscode": {
       "extensions": [
         "Shopify.ruby-lsp",
-        "Vue.volar"
-      ]
+        "Vue.volar",
+        "eamodio.gitlens",
+        "ms-azuretools.vscode-docker",
+        "sianglim.slim",
+        "syler.sass-indented",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        // Ruby LSP設定
+        "rubyLsp.enabled": true,
+        "rubyLsp.useBundler": true,
+        "rubyLsp.bundleGemfile": "/rails/Gemfile",
+        "rubyLsp.rubyVersionManager": {
+          "identifier": "custom"
+        },
+        "rubyLsp.customRubyCommand": "/usr/local/bin/ruby",
+        "rubyLsp.formatter": "auto",
+        "rubyLsp.enableExperimentalFeatures": true,
+
+        // 他のRuby拡張機能を無効化
+        "solargraph.useBundler": false,
+        "ruby.useLanguageServer": false,
+        "ruby.intellisense": false,
+
+        // エディタ設定
+        "editor.formatOnSave": false,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+
+        // Ruby固有の設定
+        "[ruby]": {
+          "editor.defaultFormatter": "Shopify.ruby-lsp",
+          "editor.formatOnSave": false,
+          "editor.tabSize": 2,
+          "editor.insertSpaces": true,
+          "editor.semanticHighlighting.enabled": true,
+          "editor.inlayHints.enabled": "on"
+        },
+
+        // Vue設定
+        "[vue]": {
+          "editor.defaultFormatter": "Vue.volar"
+        },
+
+        // ファイル関連付け
+        "files.associations": {
+          "*.slim": "slim",
+          "*.scss": "scss"
+        }
+      }
     }
   },
-  "remoteUser": "root",
-  "postStartCommand": ""
+  "forwardPorts": [3000, 3036, 5432],
+  "portsAttributes": {
+    "3000": {
+      "label": "Rails Server",
+      "onAutoForward": "notify"
+    },
+    "3036": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "silent"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    }
+  },
+  "postCreateCommand": "bundle install && npm install",
+  "remoteUser": "root"
 }

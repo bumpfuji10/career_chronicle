@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "Shopify.ruby-lsp",
+    "Vue.volar",
+    "eamodio.gitlens",
+    "ms-azuretools.vscode-docker"
+  ],
+  "unwantedRecommendations": [
+    "rebornix.ruby",
+    "castwide.solargraph",
+    "wingrunr21.vscode-ruby"
+  ]
+}
