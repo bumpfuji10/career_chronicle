@@ -10,24 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_06_225418) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_11_123844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "resumes", force: :cascade do |t|
-    t.string "company", null: false
-    t.string "position", null: false
-    t.text "tasks", null: false
-    t.text "improvements", null: false
-    t.text "achievements", null: false
-    t.text "summary", null: false
+  create_table "achievements", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.date "start_at", null: false
-    t.date "end_at"
-    t.index ["start_at"], name: "index_resumes_on_start_at"
-    t.index ["user_id"], name: "index_resumes_on_user_id"
+    t.index ["task_id"], name: "index_achievements_on_task_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.bigint "resume_id", null: false
+    t.string "name", null: false
+    t.string "industry", null: false
+    t.date "started_at", null: false
+    t.date "ended_at", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resume_id"], name: "index_companies_on_resume_id"
+    t.index ["started_at"], name: "index_companies_on_started_at"
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "title", null: false
+    t.date "started_at", null: false
+    t.date "ended_at", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_positions_on_company_id"
+    t.index ["started_at"], name: "index_positions_on_started_at"
+  end
+
+  create_table "resumes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_resumes_on_user_id", unique: true
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.bigint "position_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["position_id"], name: "index_tasks_on_position_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,5 +75,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_06_225418) do
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
   end
 
+  add_foreign_key "achievements", "tasks"
+  add_foreign_key "companies", "resumes"
+  add_foreign_key "positions", "companies"
   add_foreign_key "resumes", "users"
+  add_foreign_key "tasks", "positions"
 end
