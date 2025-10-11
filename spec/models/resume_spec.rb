@@ -12,7 +12,7 @@ RSpec.describe Resume, type: :model do
       expect(association.macro).to eq(:has_many)
     end
 
-    it '企業が削除されると、関連する企業も削除される' do
+    it '経歴書が削除されると、関連する企業も削除される' do
       association = described_class.reflect_on_association(:companies)
       expect(association.options[:dependent]).to eq(:destroy)
     end
@@ -21,23 +21,37 @@ RSpec.describe Resume, type: :model do
   describe 'バリデーション' do
     let(:user) { Member.create!(name: 'テストユーザー', email: 'test@example.com', password: 'password123') }
 
-    it 'user_idが必須である' do
-      resume = Resume.new(user_id: nil)
-      expect(resume).not_to be_valid
-      expect(resume.errors[:user_id]).to include("を入力してください")
+    context 'userの存在確認' do
+      it 'userが紐づいていない場合、作成に失敗する' do
+        resume = Resume.new(user: nil)
+        expect(resume).to be_invalid
+        expect(resume.errors[:user]).to be_present
+      end
+
+      it 'userが紐づいている場合、作成できる' do
+        resume = Resume.new(user: user)
+        expect(resume).to be_valid
+      end
     end
 
-    it '1ユーザーは1つの経歴書のみ作成できる（一意性制約）' do
-      Resume.create!(user: user)
-      duplicate_resume = Resume.new(user: user)
+    context 'user_idの一意性' do
+      it 'resumeが保有するuser_idはuniqueである' do
+        Resume.create!(user: user)
+        duplicate_resume = Resume.new(user: user)
 
-      expect(duplicate_resume).not_to be_valid
-      expect(duplicate_resume.errors[:user_id]).to include("はすでに存在します")
-    end
+        expect(duplicate_resume).to be_invalid
+        expect(duplicate_resume.errors[:user_id]).to include("はすでに存在します")
+      end
 
-    it '有効な属性で作成できる' do
-      resume = Resume.new(user: user)
-      expect(resume).to be_valid
+      it '異なるuserであれば、それぞれresumeを作成できる' do
+        user2 = Member.create!(name: 'テストユーザー2', email: 'test2@example.com', password: 'password123')
+
+        resume1 = Resume.create!(user: user)
+        resume2 = Resume.new(user: user2)
+
+        expect(resume1).to be_valid
+        expect(resume2).to be_valid
+      end
     end
   end
 
