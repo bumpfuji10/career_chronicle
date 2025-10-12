@@ -19,46 +19,54 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'バリデーション' do
-    let(:user) { Member.create!(name: 'テストユーザー', email: 'test@example.com', password: 'password123') }
-    let(:resume) { Resume.create!(user: user) }
-    let(:company) { Company.create!(resume: resume, name: 'テスト企業', industry: 'IT', started_at: Date.today, description: '説明') }
-    let(:position) { Position.create!(company: company, title: 'エンジニア', started_at: Date.today) }
+    let(:user) { create(:registered_user) }
+    let(:resume) { create(:resume, user: user) }
+    let(:company) { create(:company, resume: resume) }
+    let(:position) { create(:position, company: company) }
 
     context '必須項目の確認' do
-      it 'contentが必須である' do
-        task = Task.new(position: position, content: nil)
+      it 'task_descriptionが必須である' do
+        task = Task.new(position: position, task_description: nil, improvement: '工夫したこと')
         expect(task).to be_invalid
-        expect(task.errors[:content]).to include("を入力してください")
+        expect(task.errors[:task_description]).to include("を入力してください")
+      end
+
+      it 'improvementが必須である' do
+        task = Task.new(position: position, task_description: 'やったこと', improvement: nil)
+        expect(task).to be_invalid
+        expect(task.errors[:improvement]).to include("を入力してください")
       end
 
       it 'positionが紐づいていない場合、作成に失敗する' do
-        task = Task.new(position: nil, content: 'Reactでの開発')
+        task = Task.new(position: nil, task_description: 'Reactでの開発', improvement: 'パフォーマンス改善')
         expect(task).to be_invalid
         expect(task.errors[:position]).to be_present
       end
 
       it '有効な属性で作成できる' do
-        task = Task.new(position: position, content: 'Reactでの開発')
+        task = Task.new(position: position, task_description: 'Reactでの開発', improvement: 'パフォーマンス改善')
         expect(task).to be_valid
       end
     end
   end
 
   describe '作成' do
-    let(:user) { Member.create!(name: 'テストユーザー', email: 'test@example.com', password: 'password123') }
-    let(:resume) { Resume.create!(user: user) }
-    let(:company) { Company.create!(resume: resume, name: 'テスト企業', industry: 'IT', started_at: Date.today, description: '説明') }
-    let(:position) { Position.create!(company: company, title: 'エンジニア', started_at: Date.today) }
+    let(:user) { create(:registered_user) }
+    let(:resume) { create(:resume, user: user) }
+    let(:company) { create(:company, resume: resume) }
+    let(:position) { create(:position, company: company) }
 
     it 'タスク情報が正常に作成できる' do
       task = Task.create!(
         position: position,
-        content: 'Reactを用いたSPA開発'
+        task_description: 'Reactを用いたSPA開発',
+        improvement: 'コンポーネントの再利用性を高めた'
       )
 
       expect(task).to be_persisted
       expect(task.position).to eq(position)
-      expect(task.content).to eq('Reactを用いたSPA開発')
+      expect(task.task_description).to eq('Reactを用いたSPA開発')
+      expect(task.improvement).to eq('コンポーネントの再利用性を高めた')
       expect(task.achievements).to be_empty
     end
   end

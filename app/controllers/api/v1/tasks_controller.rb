@@ -22,6 +22,6 @@ class Api::V1::TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:position_id, :content)
+    params.require(:task).permit(:position_id, :task_description, :improvement)
   end
 end

@@ -12,7 +12,8 @@ RSpec.describe "Api::V1::Tasks", type: :request do
         {
           task: {
             position_id: position.id,
-            content: 'システム開発を担当しました'
+            task_description: 'システム開発を担当しました',
+            improvement: 'CI/CDパイプラインを構築してデプロイを自動化'
           }
         }
       end
@@ -32,7 +33,8 @@ RSpec.describe "Api::V1::Tasks", type: :request do
         post '/api/v1/tasks', params: valid_params
         json = JSON.parse(response.body)
 
-        expect(json['content']).to eq('システム開発を担当しました')
+        expect(json['task_description']).to eq('システム開発を担当しました')
+        expect(json['improvement']).to eq('CI/CDパイプラインを構築してデプロイを自動化')
         expect(json['position_id']).to eq(position.id)
       end
     end
@@ -42,7 +44,8 @@ RSpec.describe "Api::V1::Tasks", type: :request do
         {
           task: {
             position_id: position.id,
-            content: ''
+            task_description: '',
+            improvement: '工夫したこと'
           }
         }
       end
@@ -75,7 +78,8 @@ RSpec.describe "Api::V1::Tasks", type: :request do
       let(:valid_update_params) do
         {
           task: {
-            content: '更新されたタスク内容'
+            task_description: '更新されたタスク内容',
+            improvement: '更新された工夫したこと'
           }
         }
       end
@@ -84,7 +88,8 @@ RSpec.describe "Api::V1::Tasks", type: :request do
         patch "/api/v1/tasks/#{task.id}", params: valid_update_params
         task.reload
 
-        expect(task.content).to eq('更新されたタスク内容')
+        expect(task.task_description).to eq('更新されたタスク内容')
+        expect(task.improvement).to eq('更新された工夫したこと')
       end
 
       it 'ステータス204が返る' do
@@ -102,17 +107,18 @@ RSpec.describe "Api::V1::Tasks", type: :request do
       let(:invalid_update_params) do
         {
           task: {
-            content: ''
+            task_description: '',
+            improvement: '工夫したこと'
           }
         }
       end
 
       it 'タスク情報が更新されない' do
-        original_content = task.content
+        original_task_description = task.task_description
         patch "/api/v1/tasks/#{task.id}", params: invalid_update_params
         task.reload
 
-        expect(task.content).to eq(original_content)
+        expect(task.task_description).to eq(original_task_description)
       end
 
       it 'ステータス422が返る' do
