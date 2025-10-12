@@ -13,9 +13,9 @@
         <CompanyForm :resume-id="resumeId" @nextStep="handleCompanyCreated" />
       </div>
       <div v-else-if="step === 2" class="step">
-        <RoleProjectForm
-          :form="form"
-          @nextStep="nextStep"
+        <RolePositionForm
+          :company-id="companyId"
+          @nextStep="handleRolePositionCreated"
           @prevStep="prevStep"
         />
       </div>
@@ -47,6 +47,7 @@ import ProgressBar from "./ProgressBar.vue";
 import CelebrationAnimation from "./CelebrationAnimation.vue";
 
 import CompanyForm from "./Resume/CompanyForm.vue";
+import RolePositionForm from "./Resume/RolePositionForm.vue"
 import RoleProjectForm from "./Resume/RoleProjectForm.vue";
 import ApproachForm from "./Resume/ApproachForm.vue";
 import AchievementForm from "./Resume/AchievementForm.vue";
@@ -58,6 +59,7 @@ export default {
     ProgressBar,
     CelebrationAnimation,
     CompanyForm,
+    RolePositionForm,
     RoleProjectForm,
     ApproachForm,
     AchievementForm,
@@ -71,6 +73,7 @@ export default {
       savedResumeId: null,
       resumeId: null,
       companyId: null,
+      positionId: null,
       form: {
         position: "",
         tasks: "",
@@ -80,7 +83,7 @@ export default {
       summary: "",
       stepLabels: [
         "会社名を入力",
-        "役職・ポジション",
+        "所属部署・役職",
         "やったこと・工夫したこと",
         "成果・実績",
         "文章整形",
@@ -102,6 +105,10 @@ export default {
     handleCompanyCreated(companyData) {
       this.companyId = companyData.id;
       this.nextStep();
+    },
+    handleRolePositionCreated(rolePositionData) {
+      this.positionId = rolePositionData.id
+      this.nextStep()
     },
     nextStep() {
       if (this.step < 5) {
