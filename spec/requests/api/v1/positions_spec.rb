@@ -12,6 +12,7 @@ RSpec.describe "Api::V1::Positions", type: :request do
           position: {
             company_id: company.id,
             title: 'シニアエンジニア',
+            department: '開発部',
             started_at: '2020-04-01',
             ended_at: '2023-03-31'
           }
@@ -34,6 +35,7 @@ RSpec.describe "Api::V1::Positions", type: :request do
         json = JSON.parse(response.body)
 
         expect(json['title']).to eq('シニアエンジニア')
+        expect(json['department']).to eq('開発部')
         expect(json['company_id']).to eq(company.id)
       end
     end
@@ -44,6 +46,7 @@ RSpec.describe "Api::V1::Positions", type: :request do
           position: {
             company_id: company.id,
             title: '現在の役職',
+            department: '技術部',
             started_at: '2023-04-01',
             ended_at: nil
           }
@@ -104,6 +107,7 @@ RSpec.describe "Api::V1::Positions", type: :request do
         {
           position: {
             title: '更新された役職名',
+            department: '更新された部署',
             started_at: '2021-01-01',
             ended_at: '2024-12-31'
           }
@@ -115,6 +119,7 @@ RSpec.describe "Api::V1::Positions", type: :request do
         position.reload
 
         expect(position.title).to eq('更新された役職名')
+        expect(position.department).to eq('更新された部署')
         expect(position.started_at).to eq(Date.parse('2021-01-01'))
         expect(position.ended_at).to eq(Date.parse('2024-12-31'))
       end

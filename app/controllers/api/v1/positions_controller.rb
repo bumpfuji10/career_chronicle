@@ -22,6 +22,6 @@ class Api::V1::PositionsController < ApplicationController
   private
 
   def position_params
-    params.require(:position).permit(:company_id, :title, :started_at, :ended_at)
+    params.require(:position).permit(:company_id, :title, :department, :started_at, :ended_at)
   end
 end
