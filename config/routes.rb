@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :companies, only: [:create, :update]
       resources :positions, only: [:create, :update]
       resources :tasks, only: [:create, :update]
+      resources :achievements, only: [:create, :update]
     end
   end
 end
