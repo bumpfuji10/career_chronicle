@@ -1,31 +1,18 @@
-module Api
-  module V1
-    class ResumesController < ApplicationController
-      skip_before_action :verify_authenticity_token
-      before_action :ensure_user, only: [:create]
+class Api::V1::ResumesController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
-      def create
-        resume = @user.resume.build(resume_params)
-        resume.summary = resume.generate_summary
-        
-        if resume.save
-          generator = JsonResponseGenerator.new(resume, user: @user)
-          render json: JSON.parse(generator.success), status: :created
-        else
-          generator = JsonResponseGenerator.new(resume)
-          render json: JSON.parse(generator.error('保存に失敗しました', resume.errors.full_messages)), status: :unprocessable_entity
-        end
-      end
-
-      private
-
-      def ensure_user
-        @user = current_member || current_guest
-      end
-
-      def resume_params
-        params.require(:resume).permit(:company, :position, :tasks, :improvements, :achievements, :start_at, :end_at)
-      end
+  def create
+    resume = Resume.new(resume_params)
+    if resume.save
+      render json: resume, status: :created
+    else
+      render json: { errors: resume.errors.full_messages }, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def resume_params
+    params.require(:resume).permit(:user_id)
   end
 end
