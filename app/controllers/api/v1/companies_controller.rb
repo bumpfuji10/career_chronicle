@@ -11,7 +11,12 @@ class Api::V1::CompaniesController < ApplicationController
   end
 
   def update
-
+    company = Company.find(params[:id])
+    if company.update(company_params)
+      head :no_content
+    else
+      render json: { errors: company.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
