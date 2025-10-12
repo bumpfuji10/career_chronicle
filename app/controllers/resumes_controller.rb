@@ -5,7 +5,10 @@ class ResumesController < ApplicationController
   before_action :set_resume, only: [:show]
   before_action :authorize_resume!, only: [:show]
 
-  def new; end
+  def new
+    # 既に resume が存在する場合はそれを使用、なければ新規作成
+    @resume = @user.resume || @user.create_resume!
+  end
 
   def show; end
 

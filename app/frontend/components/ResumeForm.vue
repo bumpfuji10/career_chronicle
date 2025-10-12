@@ -10,7 +10,7 @@
 
     <div class="resume-form">
       <div v-if="step === 1" class="step">
-        <CompanyForm :form="form" @nextStep="nextStep" />
+        <CompanyForm :form="form" :resume-id="resumeId" @nextStep="nextStep" />
       </div>
       <div v-else-if="step === 2" class="step">
         <RoleProjectForm
@@ -69,6 +69,7 @@ export default {
       done: false,
       showCelebration: false,
       savedResumeId: null,
+      resumeId: null,
       form: {
         company: "",
         position: "",
@@ -81,13 +82,20 @@ export default {
       },
       summary: "",
       stepLabels: [
-        "基本情報",
+        "会社名を入力",
         "やったこと",
         "工夫したこと",
         "成果・実績",
         "文章整形",
       ],
     };
+  },
+  mounted() {
+    // data-resume-id 属性から resumeId を取得
+    const resumeFormElement = document.getElementById('ResumeForm');
+    if (resumeFormElement) {
+      this.resumeId = parseInt(resumeFormElement.dataset.resumeId);
+    }
   },
   methods: {
     handleCelebrationHide() {
