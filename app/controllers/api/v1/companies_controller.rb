@@ -1,9 +1,22 @@
-class CompaniesController < ApplicationController
-  def create
+class Api::V1::CompaniesController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
+  def create
+    company = Company.new(company_params)
+    if company.save
+      render json: company, status: :created
+    else
+      render json: { errors: company.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def update
-    
+
+  end
+
+  private
+
+  def company_params
+    params.require(:company).permit(:resume_id, :name, :industry, :started_at, :ended_at)
   end
 end
