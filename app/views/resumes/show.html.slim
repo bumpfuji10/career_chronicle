@@ -13,7 +13,7 @@
   .resume-detail__summary
     h2.resume-detail__summary-title 文章化した職務経歴
     .resume-detail__summary-content
-      = @resume.generate_summary
+      = @resume
 
   .resume-detail__content
     .resume-detail__section
@@ -21,28 +21,28 @@
         #CompanyIcon
       h2.resume-detail__section-title 会社名・役職
       .resume-detail__section-content
-        = "#{@resume.company} / #{@resume.position}"
+        = "#{@resume} / #{@resume}"
 
     .resume-detail__section
       .resume-detail__section-icon
         #BriefcaseIcon
       h2.resume-detail__section-title やったこと
       .resume-detail__section-content
-        = simple_format(@resume.tasks)
+        p やったことだよ
 
     .resume-detail__section
       .resume-detail__section-icon
         #LightbulbIcon
       h2.resume-detail__section-title 工夫したこと
       .resume-detail__section-content
-        = simple_format(@resume.improvements)
+        p 工夫したことだよ
 
     .resume-detail__section
       .resume-detail__section-icon
         #ChartLineIcon
       h2.resume-detail__section-title 成果・実績
       .resume-detail__section-content
-        = simple_format(@resume.achievements)
+        p 成果・実績だよ
 
   .resume-detail__actions(style="display: flex;")
     = link_to "トップページへ戻る", root_path, class: "base-btn base-btn__white"
