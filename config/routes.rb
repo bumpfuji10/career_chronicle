@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :resumes, only: [:create]
       resources :companies, only: [:create, :update]
+      resources :positions, only: [:create, :update]
+      resources :tasks, only: [:create, :update]
     end
   end
 end
