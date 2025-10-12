@@ -2,11 +2,16 @@
 import axios from 'axios';
 
 export default {
+  data() {
+    return {
+      name: "",
+      industry: "",
+      started_at: "",
+      ended_at: "",
+      is_current: false,
+    }
+  },
   props: {
-    form: {
-      type: Object,
-      required: true,
-    },
     resumeId: {
       type: Number,
       required: true,
@@ -21,30 +26,27 @@ export default {
         const params = {
           company: {
             resume_id: this.resumeId,
-            name: this.form.company,
-            industry: this.form.industry,
-            started_at: this.form.start_at,
-            ended_at: this.form.is_current ? null : this.form.end_at
+            name: this.name,
+            industry: this.industry,
+            started_at: this.started_at,
+            ended_at: this.is_current ? null : this.ended_at
           }
         };
 
         const response = await axios.post("/api/v1/companies", params);
-        console.log('Company created:', response.data);
 
         // 成功したら次のステップへ
         this.$emit("nextStep", response.data);
       } catch (error) {
         console.error('Error saving company:', error.response?.data || error);
-        // エラーハンドリング（必要に応じてユーザーに通知）
         if (error.response?.data?.errors) {
           console.error(error.response.data.errors)
-          alert(`エラー: ${error.response.data.errors.join(', ')}`);
         }
       }
     },
     handleCurrentJobChange() {
-      if (this.form.is_current) {
-        this.form.end_at = null;
+      if (this.is_current) {
+        this.ended_at = null;
       }
     }
   },
@@ -57,12 +59,12 @@ export default {
   <label for="company">会社名<span class="required">*</span></label>
   <input
     id="company"
-    v-model="form.company"
+    v-model="name"
     placeholder="例: 株式会社キャリクロ"
   />
 
   <label for="industry">業種<span class="required">*</span></label>
-  <input id="industry" v-model="form.industry" placeholder="例: IT・ソフトウェア／SaaS">
+  <input id="industry" v-model="industry" placeholder="例: IT・ソフトウェア／SaaS">
 
   <div class="date-fields-container">
     <div class="date-field">
@@ -70,21 +72,21 @@ export default {
       <input
         id="start_at"
         type="date"
-        v-model="form.start_at"
+        v-model="started_at"
         placeholder="開始日を選択"
       />
     </div>
 
     <div class="date-field">
       <label for="end_at"
-        >終了日<span v-if="!form.is_current" class="required">*</span></label
+        >終了日<span v-if="!is_current" class="required">*</span></label
       >
       <input
         id="end_at"
         type="date"
-        v-model="form.end_at"
-        :disabled="form.is_current"
-        :required="!form.is_current"
+        v-model="ended_at"
+        :disabled="is_current"
+        :required="!is_current"
         placeholder="終了日を選択"
       />
     </div>
@@ -94,7 +96,7 @@ export default {
     <input
       id="is_current"
       type="checkbox"
-      v-model="form.is_current"
+      v-model="is_current"
       @change="handleCurrentJobChange"
     />
     <label for="is_current" class="checkbox-label">現在この職場に在籍中</label>

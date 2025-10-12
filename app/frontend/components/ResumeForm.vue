@@ -10,7 +10,7 @@
 
     <div class="resume-form">
       <div v-if="step === 1" class="step">
-        <CompanyForm :form="form" :resume-id="resumeId" @nextStep="nextStep" />
+        <CompanyForm :resume-id="resumeId" @nextStep="handleCompanyCreated" />
       </div>
       <div v-else-if="step === 2" class="step">
         <RoleProjectForm
@@ -70,12 +70,9 @@ export default {
       showCelebration: false,
       savedResumeId: null,
       resumeId: null,
+      companyId: null,
       form: {
-        company: "",
         position: "",
-        start_at: "",
-        end_at: "",
-        is_current: false,
         tasks: "",
         improvements: "",
         achievements: "",
@@ -102,10 +99,9 @@ export default {
       this.showCelebration = false;
       this.done = true;
     },
-    handleCurrentJobChange() {
-      if (this.form.is_current) {
-        this.form.end_at = "";
-      }
+    handleCompanyCreated(companyData) {
+      this.companyId = companyData.id;
+      this.nextStep();
     },
     nextStep() {
       if (this.step < 5) {
