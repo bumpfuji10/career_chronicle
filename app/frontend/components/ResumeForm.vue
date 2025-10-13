@@ -20,12 +20,16 @@
         />
       </div>
       <div v-else-if="step === 3" class="step">
-        <ApproachForm :form="form" @nextStep="nextStep" @prevStep="prevStep" />
+        <ProjectTaskForm
+          :position-id="positionId"
+          @nextStep="handleTaskCreated"
+          @prevStep="prevStep"
+        />
       </div>
       <div v-else-if="step === 4" class="step">
         <AchievementForm
-          :form="form"
-          @nextStep="nextStep"
+          :task-id="taskId"
+          @nextStep="handleAchievementCreated"
           @prevStep="prevStep"
         />
       </div>
@@ -48,7 +52,7 @@ import CelebrationAnimation from "./CelebrationAnimation.vue";
 
 import CompanyForm from "./Resume/CompanyForm.vue";
 import RolePositionForm from "./Resume/RolePositionForm.vue"
-import RoleProjectForm from "./Resume/RoleProjectForm.vue";
+import ProjectTaskForm from "./Resume/ProjectTaskForm.vue";
 import ApproachForm from "./Resume/ApproachForm.vue";
 import AchievementForm from "./Resume/AchievementForm.vue";
 import SummaryForm from "./Resume/SummaryForm.vue";
@@ -60,7 +64,7 @@ export default {
     CelebrationAnimation,
     CompanyForm,
     RolePositionForm,
-    RoleProjectForm,
+    ProjectTaskForm,
     ApproachForm,
     AchievementForm,
     SummaryForm,
@@ -74,12 +78,7 @@ export default {
       resumeId: null,
       companyId: null,
       positionId: null,
-      form: {
-        position: "",
-        tasks: "",
-        improvements: "",
-        achievements: "",
-      },
+      taskId: null,
       summary: "",
       stepLabels: [
         "会社名を入力",
@@ -108,6 +107,14 @@ export default {
     },
     handleRolePositionCreated(rolePositionData) {
       this.positionId = rolePositionData.id
+      this.nextStep()
+    },
+    handleTaskCreated(taskData) {
+      this.taskId = taskData.id
+      this.nextStep()
+    },
+    handleAchievementCreated(achievementData) {
+      this.achevementId = achievementData.id
       this.nextStep()
     },
     nextStep() {
