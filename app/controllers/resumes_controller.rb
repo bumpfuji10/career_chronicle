@@ -18,6 +18,9 @@ class ResumesController < ApplicationController
 
   private
 
+  # memberもしくはguestを返す
+    # guestはセッションを有している、有効期限内のuserに限る
+    # guestが存在しない場合は、現時刻を有効期限として、guestを作成する
   def set_user
     @user = current_member || current_guest || create_guest_user!
   end
