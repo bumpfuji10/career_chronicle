@@ -13,6 +13,6 @@ class Api::V1::ResumesController < ApplicationController
   private
 
   def resume_params
-    params.require(:resume).permit(:user_id)
+    params.require(:resume).permit(:user_id, :summary)
   end
 end

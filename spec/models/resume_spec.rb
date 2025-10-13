@@ -19,7 +19,7 @@ RSpec.describe Resume, type: :model do
   end
 
   describe 'バリデーション' do
-    let(:user) { Member.create!(name: 'テストユーザー', email: 'test@example.com', password: 'password123') }
+    let(:user) { create(:registered_user) }
 
     context 'userの存在確認' do
       it 'userが紐づいていない場合、作成に失敗する' do
@@ -44,7 +44,7 @@ RSpec.describe Resume, type: :model do
       end
 
       it '異なるuserであれば、それぞれresumeを作成できる' do
-        user2 = Member.create!(name: 'テストユーザー2', email: 'test2@example.com', password: 'password123')
+        user2 = create(:registered_user)
 
         resume1 = Resume.create!(user: user)
         resume2 = Resume.new(user: user2)
@@ -53,11 +53,34 @@ RSpec.describe Resume, type: :model do
         expect(resume2).to be_valid
       end
     end
+
+    context 'summaryのバリデーション' do
+      it 'summaryは任意項目である' do
+        resume = Resume.new(user: user, summary: nil)
+        expect(resume).to be_valid
+      end
+
+      it 'summaryは空文字列でも有効' do
+        resume = Resume.new(user: user, summary: '')
+        expect(resume).to be_valid
+      end
+
+      it 'summaryは10,000文字まで保存できる' do
+        resume = Resume.new(user: user, summary: 'あ' * 10_000)
+        expect(resume).to be_valid
+      end
+
+      it 'summaryが10,000文字を超える場合は無効' do
+        resume = Resume.new(user: user, summary: 'あ' * 10_001)
+        expect(resume).to be_invalid
+        expect(resume.errors[:summary]).to include("は10000文字以内で入力してください")
+      end
+    end
   end
 
   describe '作成' do
     context 'Memberユーザーの場合' do
-      let(:user) { Member.create!(name: 'テストユーザー', email: 'test@example.com', password: 'password123') }
+      let(:user) { create(:registered_user) }
 
       it '職務経歴書が正常に作成できる' do
         resume = Resume.create!(user: user)
@@ -65,11 +88,12 @@ RSpec.describe Resume, type: :model do
         expect(resume).to be_persisted
         expect(resume.user).to eq(user)
         expect(resume.companies).to be_empty
+        expect(resume.summary).to be_nil
       end
     end
 
     context 'Guestユーザーの場合' do
-      let(:guest) { Guest.create!(session_token: SecureRandom.hex(16)) }
+      let(:guest) { create(:guest_user) }
 
       it '職務経歴書が正常に作成できる' do
         resume = Resume.create!(user: guest)
@@ -77,11 +101,23 @@ RSpec.describe Resume, type: :model do
         expect(resume).to be_persisted
         expect(resume.user).to eq(guest)
         expect(resume.companies).to be_empty
+        expect(resume.summary).to be_nil
       end
 
       it 'Guestユーザーもresumeを保有できる' do
         resume = Resume.new(user: guest)
         expect(resume).to be_valid
+      end
+    end
+
+    context 'summaryを含む場合' do
+      let(:user) { create(:registered_user) }
+
+      it 'summaryと一緒に作成できる' do
+        resume = Resume.create!(user: user, summary: '私は株式会社ABCで営業として働きました。')
+
+        expect(resume).to be_persisted
+        expect(resume.summary).to eq('私は株式会社ABCで営業として働きました。')
       end
     end
   end

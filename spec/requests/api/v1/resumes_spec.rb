@@ -29,6 +29,31 @@ RSpec.describe "Api::V1::Resumes", type: :request do
         json = JSON.parse(response.body)
 
         expect(json['user_id']).to eq(user.id)
+        expect(json['summary']).to be_nil
+      end
+    end
+
+    context 'summaryを含むパラメータの場合' do
+      let(:params_with_summary) do
+        {
+          resume: {
+            user_id: user.id,
+            summary: '私は株式会社ABCで営業として働きました。'
+          }
+        }
+      end
+
+      it 'summaryを含む経歴書が作成される' do
+        expect {
+          post '/api/v1/resumes', params: params_with_summary
+        }.to change(Resume, :count).by(1)
+      end
+
+      it '作成された経歴書にsummaryが含まれる' do
+        post '/api/v1/resumes', params: params_with_summary
+        json = JSON.parse(response.body)
+
+        expect(json['summary']).to eq('私は株式会社ABCで営業として働きました。')
       end
     end
 
