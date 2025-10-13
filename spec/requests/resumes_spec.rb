@@ -70,7 +70,6 @@ RSpec.describe "職務経歴書", type: :request do
         # 最初のリクエストでresumeを作成
         get new_resume_path
         expect(Resume.count).to eq(1)
-        first_resume = Resume.last
 
         # 2回目のリクエストではリダイレクトされる（ゲストは1件のみ）
         get new_resume_path
@@ -81,7 +80,6 @@ RSpec.describe "職務経歴書", type: :request do
       it "ゲストユーザーは2件目のresumeを作成できない" do
         # 最初のリクエストでresumeを作成
         get new_resume_path
-        first_resume = Resume.last
 
         # 2回目のリクエストではリダイレクトされる
         get new_resume_path
