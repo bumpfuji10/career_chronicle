@@ -253,6 +253,8 @@ GEM
       rbs (>= 3, < 5)
     ruby-lsp-rails (0.4.8)
       ruby-lsp (>= 0.26.0, < 0.27.0)
+    ruby-lsp-rspec (0.1.28)
+      ruby-lsp (~> 0.26.0)
     securerandom (0.4.1)
     slim (5.2.1)
       temple (~> 0.10.0)
@@ -328,6 +330,7 @@ DEPENDENCIES
   rspec-rails (~> 6.0)
   ruby-lsp
   ruby-lsp-rails
+  ruby-lsp-rspec
   slim-rails
   sprockets-rails
   stimulus-rails
