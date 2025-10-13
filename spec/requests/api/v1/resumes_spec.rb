@@ -3,6 +3,29 @@ require 'rails_helper'
 RSpec.describe "Api::V1::Resumes", type: :request do
   let(:user) { create(:registered_user) }
 
+  describe "GET /api/v1/resumes/:resume_id" do
+    let(:user) { FactoryBot.create(:registered_user) }
+    let!(:resume) { FactoryBot.create(:resume, :with_summary, user: user) }
+    
+    it "アクセスが可能であること" do
+      get("/api/v1/resumes/#{resume.id}")
+      expect(response.status).to eq 200
+    end
+
+    context "他人の経歴書の場合" do
+      let(:other_user_resume) do
+        other_user = FactoryBot.create(:registered_user)
+        resume = FactoryBot.create(:resume, :with_summary, user: other_user)
+        resume
+      end
+
+      it "他人の経歴書は閲覧できないこと" do
+        get "/api/v1/resumes/#{other_user_resume.id}"
+        expect(response.status).to eq 403
+      end
+    end
+  end
+
   describe "POST /api/v1/resumes" do
     context '有効なパラメータの場合' do
       let(:valid_params) do
@@ -114,5 +137,9 @@ RSpec.describe "Api::V1::Resumes", type: :request do
         expect(json['errors']).to include("はすでに存在します")
       end
     end
+  end
+
+  xdescribe "PATCH /api/v1/resumes" do
+
   end
 end

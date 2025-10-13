@@ -19,7 +19,7 @@ class ResumesController < ApplicationController
   private
 
   def set_user
-    @user = current_member || current_guest
+    @user = current_member || current_guest || create_guest_user!
   end
 
   def deny_guest_access!

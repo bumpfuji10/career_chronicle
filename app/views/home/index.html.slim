@@ -12,7 +12,7 @@
 
     - unless logged_in?
       .home__hero__startButton
-        - if @user.is_a?(Guest) && @user.resume.blank?
+        - if !@user.present?
           = link_to(new_resume_path, class: "base-btn") do
             | 無料ではじめる
             #ArrowRightIcon
