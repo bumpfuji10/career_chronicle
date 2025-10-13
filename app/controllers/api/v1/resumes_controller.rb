@@ -5,7 +5,31 @@ class Api::V1::ResumesController < ApplicationController
 
   # userが他人のresumeを閲覧しようとしたら例外発生
   def show
-    render json: @resume
+    # クエリパラメータで詳細データの取得を制御
+    if params[:include_details] == 'true'
+      # 全データ取得
+      @resume = Resume.includes(companies: { positions: { tasks: :achievements } }).find(params[:id])
+      render json: {
+        resume: @resume.as_json(
+          include: {
+            companies: {
+              include: {
+                positions: {
+                  include: {
+                    tasks: {
+                      include: :achievements
+                    }
+                  }
+                }
+              }
+            }
+          }
+        )
+      }
+    else
+      # 基本情報のみ
+      render json: @resume
+    end
   end
 
   def create
