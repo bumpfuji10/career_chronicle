@@ -26,25 +26,29 @@ RSpec.describe Task, type: :model do
 
     context '必須項目の確認' do
       it 'task_descriptionが必須である' do
-        task = Task.new(position: position, task_description: nil, improvement: '工夫したこと')
+        task = Task.new(position: position, task_description: nil)
         expect(task).to be_invalid
         expect(task.errors[:task_description]).to include("を入力してください")
       end
 
-      it 'improvementが必須である' do
+      it 'improvementは任意項目である' do
         task = Task.new(position: position, task_description: 'やったこと', improvement: nil)
-        expect(task).to be_invalid
-        expect(task.errors[:improvement]).to include("を入力してください")
+        expect(task).to be_valid
       end
 
       it 'positionが紐づいていない場合、作成に失敗する' do
-        task = Task.new(position: nil, task_description: 'Reactでの開発', improvement: 'パフォーマンス改善')
+        task = Task.new(position: nil, task_description: 'Reactでの開発')
         expect(task).to be_invalid
         expect(task.errors[:position]).to be_present
       end
 
-      it '有効な属性で作成できる' do
+      it '有効な属性で作成できる（improvementあり）' do
         task = Task.new(position: position, task_description: 'Reactでの開発', improvement: 'パフォーマンス改善')
+        expect(task).to be_valid
+      end
+
+      it '有効な属性で作成できる（improvementなし）' do
+        task = Task.new(position: position, task_description: 'Reactでの開発')
         expect(task).to be_valid
       end
     end

@@ -39,13 +39,43 @@ RSpec.describe "Api::V1::Tasks", type: :request do
       end
     end
 
-    context '無効なパラメータの場合' do
+    context 'improvementが空の場合' do
+      let(:params_without_improvement) do
+        {
+          task: {
+            position_id: position.id,
+            task_description: 'システム開発を担当しました',
+            improvement: nil
+          }
+        }
+      end
+
+      it 'タスク情報が作成される' do
+        expect {
+          post '/api/v1/tasks', params: params_without_improvement
+        }.to change(Task, :count).by(1)
+      end
+
+      it 'ステータス201が返る' do
+        post '/api/v1/tasks', params: params_without_improvement
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'improvementがnilで保存される' do
+        post '/api/v1/tasks', params: params_without_improvement
+        json = JSON.parse(response.body)
+
+        expect(json['task_description']).to eq('システム開発を担当しました')
+        expect(json['improvement']).to be_nil
+      end
+    end
+
+    context '無効なパラメータの場合（task_descriptionが空）' do
       let(:invalid_params) do
         {
           task: {
             position_id: position.id,
-            task_description: '',
-            improvement: '工夫したこと'
+            task_description: ''
           }
         }
       end
@@ -103,12 +133,33 @@ RSpec.describe "Api::V1::Tasks", type: :request do
       end
     end
 
-    context '無効なパラメータの場合' do
+    context 'improvementをnilに更新する場合' do
+      let(:update_to_nil_params) do
+        {
+          task: {
+            improvement: nil
+          }
+        }
+      end
+
+      it 'improvementがnilで更新される' do
+        patch "/api/v1/tasks/#{task.id}", params: update_to_nil_params
+        task.reload
+
+        expect(task.improvement).to be_nil
+      end
+
+      it 'ステータス204が返る' do
+        patch "/api/v1/tasks/#{task.id}", params: update_to_nil_params
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context '無効なパラメータの場合（task_descriptionが空）' do
       let(:invalid_update_params) do
         {
           task: {
-            task_description: '',
-            improvement: '工夫したこと'
+            task_description: ''
           }
         }
       end
