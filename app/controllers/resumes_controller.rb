@@ -2,21 +2,30 @@ class ResumesController < ApplicationController
   before_action :set_user
   before_action :deny_guest_access!, except: [:new, :show]
   before_action :check_guest_resume_limit, only: [:new]
-  before_action :set_resume, only: [:show]
-  before_action :authorize_resume!, only: [:show]
+  before_action :set_resume, only: [:show, :generate_summary]
+  before_action :authorize_resume!, only: [:show, :generate_summary]
 
-  def new; end
+  def new
+    # 既に resume が存在する場合はそれを使用、なければ新規作成
+    @resume = @user.resume || @user.create_resume!
+  end
 
   def show; end
 
-  def index
-    @resumes = @user.resumes
+  def generate_summary
+    summary_text = @resume.generate_summary_data
+    @resume.update!(summary: summary_text)
+
+    redirect_to resume_path(@resume), notice: "職務経歴書のサマリーを生成しました。"
   end
 
   private
 
+  # memberもしくはguestを返す
+    # guestはセッションを有している、有効期限内のuserに限る
+    # guestが存在しない場合は、現時刻を有効期限として、guestを作成する
   def set_user
-    @user = current_member || current_guest
+    @user = current_member || current_guest || create_guest_user!
   end
 
   def deny_guest_access!
@@ -26,7 +35,7 @@ class ResumesController < ApplicationController
   end
 
   def check_guest_resume_limit
-    if @user.is_a?(Guest) && @user.resumes.exists?
+    if @user.is_a?(Guest) && @user.resume.present?
       redirect_to root_path, alert: "ゲストユーザーは職務経歴書を1件までしか作成できません。アカウントの登録もしくはログインをしていただくことで2件目の作成が可能となっております。"
     end
   end

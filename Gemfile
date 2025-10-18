@@ -55,6 +55,10 @@ end
 
 group :development do
   gem "ruby-lsp", require: false
+
+  gem "ruby-lsp-rails"
+
+  gem "ruby-lsp-rspec"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 

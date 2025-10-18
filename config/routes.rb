@@ -10,11 +10,19 @@ Rails.application.routes.draw do
   resources :members, only: [:create]
   get "signup" => "members#new", as: :signup
 
-  resources :resumes, only: [:new, :create, :show, :index]
+  resources :resumes, only: [:new, :show] do
+    member do
+      post :generate_summary
+    end
+  end
 
   namespace :api do
     namespace :v1 do
-      resources :resumes, only: [:create]
+      resources :resumes, only: [:show, :create, :update]
+      resources :companies, only: [:create, :update]
+      resources :positions, only: [:create, :update]
+      resources :tasks, only: [:create, :update]
+      resources :achievements, only: [:create, :update]
     end
   end
 end

@@ -18,10 +18,10 @@ export default {
 </script>
 
 <template>
-  <h2>工夫したことを入力してください</h2>
-  <p>業務における創意工夫や独自のアプローチなどを教えて下さい</p>
+  <h2>やったことや、工夫したことを入力してください</h2>
+  <p>業務にあたったうえでの創意工夫や独自のアプローチなどを教えて下さい</p>
   <label for="improvements"
-    >工夫・プロジェクトアプローチ<span class="required">*</span></label
+    >やったこと<span class="required">*</span></label
   >
   <textarea
     id="improvements"
