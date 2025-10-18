@@ -105,20 +105,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Resume view toggle functionality
   const toggleOptions = document.querySelectorAll('.toggle-switch__option')
-  const resumeViews = document.querySelectorAll('.resume-view')
 
   toggleOptions.forEach(option => {
     option.addEventListener('click', function() {
       const targetView = this.getAttribute('data-view')
 
-      // すべてのトグルオプションからactiveクラスを削除
+      // トグル状態を更新
       toggleOptions.forEach(opt => opt.classList.remove('toggle-switch__option--active'))
-
-      // クリックされたオプションにactiveクラスを追加
       this.classList.add('toggle-switch__option--active')
 
       // すべてのビューを非表示
-      resumeViews.forEach(view => view.classList.add('resume-view--hidden'))
+      document.querySelectorAll('.resume-view').forEach(view => {
+        view.classList.add('resume-view--hidden')
+      })
 
       // 対象のビューだけ表示
       const targetElement = document.querySelector(`[data-view-target="${targetView}"]`)
