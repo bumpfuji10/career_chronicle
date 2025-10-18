@@ -1,0 +1,47 @@
+.resume-detail__content
+  - if resume.companies.any?
+    - resume.companies.order(started_at: :desc).each do |company|
+      .resume-detail__section
+        .resume-detail__section-icon
+          #CompanyIcon
+        h2.resume-detail__section-title
+          = "#{company.name} (#{company.industry})"
+        .resume-detail__section-content
+          p
+            strong 期間:
+            = "#{company.started_at.strftime('%Y年%m月')} 〜 #{company.ended_at ? company.ended_at.strftime('%Y年%m月') : '現在'}"
+
+          - company.positions.order(started_at: :desc).each do |position|
+            .position-item
+              h3
+                = "#{position.department} / #{position.title}"
+              p.period
+                = "#{position.started_at.strftime('%Y年%m月')} 〜 #{position.ended_at ? position.ended_at.strftime('%Y年%m月') : '現在'}"
+
+              - if position.tasks.any?
+                - position.tasks.each do |task|
+                  .task-item
+                    .resume-detail__section-icon
+                      #BriefcaseIcon
+                    div
+                      h4 やったこと
+                      p= task.task_description
+
+                    - if task.improvement.present?
+                      .resume-detail__section-icon
+                        #LightbulbIcon
+                      div
+                        h4 工夫したこと
+                        p= task.improvement
+
+                    - if task.achievements.any?
+                      .resume-detail__section-icon
+                        #ChartLineIcon
+                      div
+                        h4 成果・実績
+                        ul
+                          - task.achievements.each do |achievement|
+                            li= achievement.content
+  - else
+    .empty-state
+      p まだ職務経歴が登録されていません

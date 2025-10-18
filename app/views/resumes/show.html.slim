@@ -1,43 +1,22 @@
 .resume-detail
   .resume-detail__header
-    <!--ゲストユーザー用-->
-    h1.resume-detail__title
+    h1.resume-detail__title 職務経歴書
     - if @user.is_guest?
       = render "guest_header"
 
-  .resume-detail__summary
-    h2.resume-detail__summary-title 文章化した職務経歴
-    .resume-detail__summary-content
-      = @resume
+  .resume-detail__toggle
+    .toggle-switch
+      .toggle-switch__option.toggle-switch__option--active data-view="summary"
+        | 経歴書
+      .toggle-switch__option data-view="detail"
+        | 経歴一覧
 
-  .resume-detail__content
-    .resume-detail__section
-      .resume-detail__section-icon
-        #CompanyIcon
-      h2.resume-detail__section-title 会社名・役職
-      .resume-detail__section-content
-        = "#{@resume} / #{@resume}"
+  .resume-content
+    .resume-view data-view-target="summary"
+      = render "summary", resume: @resume
 
-    .resume-detail__section
-      .resume-detail__section-icon
-        #BriefcaseIcon
-      h2.resume-detail__section-title やったこと
-      .resume-detail__section-content
-        p やったことだよ
-
-    .resume-detail__section
-      .resume-detail__section-icon
-        #LightbulbIcon
-      h2.resume-detail__section-title 工夫したこと
-      .resume-detail__section-content
-        p 工夫したことだよ
-
-    .resume-detail__section
-      .resume-detail__section-icon
-        #ChartLineIcon
-      h2.resume-detail__section-title 成果・実績
-      .resume-detail__section-content
-        p 成果・実績だよ
+    .resume-view.resume-view--hidden data-view-target="detail"
+      = render "detail", resume: @resume
 
   .resume-detail__actions(style="display: flex;")
     = link_to "トップページへ戻る", root_path, class: "base-btn base-btn__white"
