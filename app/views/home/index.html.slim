@@ -21,11 +21,13 @@
         = link_to("ログイン", login_path, class: "base-btn base-btn__white")
     - else
       .home__hero__startButton
-        = link_to(new_resume_path, class: "base-btn") do
-          | 経歴書を作成する
-          #ArrowRightIcon
-        = link_to(resumes_path, class: "base-btn base-btn__white") do
-          | 作成した経歴書を確認する
+        - if @user.resume.present?
+          = link_to(resume_path(@user&.resume&.id), class: "base-btn base-btn__white") do
+            | 作成した経歴書を確認する
+        - else
+          = link_to(new_resume_path, class: "base-btn") do
+            | 経歴書を作成する
+            #ArrowRightIcon
 
   .home__features
     - @home_features.each do |feature|

@@ -12,10 +12,6 @@ class ResumesController < ApplicationController
 
   def show; end
 
-  def index
-    @resumes = @user.resume
-  end
-
   private
 
   # memberもしくはguestを返す
