@@ -93,14 +93,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // components/index.js に登録されたコンポーネント群を一括で処理
-  Object.entries(components).forEach(([name, Component]) => {
-    const el = document.getElementById(name)
-    if (el) {
-      createApp(Component)
-        .use(pinia)
-        .component('FontAwesomeIcon', FontAwesomeIcon)
-        .mount(el)
-    }
+  const mountComponents = () => {
+    Object.entries(components).forEach(([name, Component]) => {
+      const el = document.getElementById(name)
+      if (el && !el.__vue_app__) { // 既にマウント済みでない場合のみマウント
+        const app = createApp(Component)
+        app.use(pinia)
+        app.component('FontAwesomeIcon', FontAwesomeIcon)
+
+        // ResumeDetailView/ResumeDetailViewMobileの場合、propsを渡す
+        if (name === 'ResumeDetailView') {
+          const resumeId = el.getAttribute('data-resume-id')
+          console.log(`Mounting ${name} with resumeId:`, resumeId)
+          if (resumeId) {
+            app.provide('resumeId', parseInt(resumeId, 10))
+          }
+        }
+
+        app.mount(el)
+      }
+    })
+  }
+
+  // 初回マウント
+  mountComponents()
+
+  // MutationObserverでDOM変更を監視して再マウント
+  const observer = new MutationObserver(() => {
+    mountComponents()
+  })
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
   })
 
   // Resume view toggle functionality

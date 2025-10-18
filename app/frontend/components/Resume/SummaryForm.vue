@@ -12,8 +12,6 @@ export default {
     };
   },
   methods: {
-    handleNextStep() {
-      this.$emit("nextStep");
     },
     handlePrevStep() {
       this.$emit("prevStep");
@@ -25,32 +23,7 @@ export default {
       this.$emit("savedResumeId", resumeId);
     },
     async submitForm() {
-      try {
-        const response = await fetch("/api/v1/resumes", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ resume: { ...this.form } }),
-        });
-        if (response.ok) {
-          const json_response = await response.json();
-          this.summary = json_response.data.summary;
-          const resumeId = json_response.data.id;
-          this.handleSavedResumeId(resumeId);
-          this.handleCelebration();
-        } else {
-          console.log("not ok");
-          const errorData = await response.json();
-          console.error("Save failed:", errorData);
-          alert("保存に失敗しました");
-        }
-      } catch (error) {
-        console.log("error");
-        console.error("Error in submitForm:", error);
-        alert("保存中にエラーが発生しました");
-      }
-    },
+      console.log("hoge")
   },
 };
 </script>

@@ -166,6 +166,243 @@
   }
 }
 
+// Data Flow Diagram Styles (Vertical)
+.dfd-view {
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+}
+
+.dfd-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dfd-entity {
+  margin-bottom: 20px;
+
+  &--leaf {
+    .dfd-box {
+      cursor: default;
+
+      &:hover {
+        transform: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
+
+.dfd-box {
+  background: white;
+  border: 3px solid #495057;
+  border-radius: 4px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e9ecef;
+  }
+
+  &__icon {
+    width: 28px;
+    height: 28px;
+    color: #495057;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #212529;
+    flex: 1;
+  }
+
+  &__body {
+    font-size: 14px;
+    color: #495057;
+    line-height: 1.6;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  &__description {
+    margin-bottom: 8px;
+  }
+
+  &__improvement {
+    margin-top: 12px;
+    padding: 12px;
+    background-color: #fff3cd;
+    border-left: 3px solid #ffc107;
+    font-size: 13px;
+
+    strong {
+      color: #856404;
+    }
+  }
+}
+
+.dfd-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  background-color: #495057;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dfd-period {
+  font-size: 13px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.dfd-children {
+  max-height: 0;
+  overflow: hidden;
+  margin-top: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease-out, opacity 0.3s ease-out, margin-top 0.3s ease-out;
+}
+
+.dfd-arrow-down {
+  width: 24px;
+  height: 40px;
+  margin: 0 auto 16px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    stroke: #495057;
+    stroke-width: 2;
+  }
+}
+
+.dfd-children-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding-left: 40px;
+  transform: translateY(-20px);
+  transition: transform 0.4s ease-out;
+}
+
+// 展開状態
+.dfd-entity.is-expanded {
+  > .dfd-box {
+    border-color: $base-color;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  }
+
+  > .dfd-children {
+    max-height: 10000px;
+    opacity: 1;
+    margin-top: 16px;
+  }
+
+  .dfd-arrow-down {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .dfd-children-grid {
+    transform: translateY(0);
+  }
+}
+
+// 階層ごとのスタイル
+.dfd-entity--company {
+  > .dfd-box {
+    border-color: #667eea;
+    border-width: 4px;
+
+    .dfd-box__header {
+      border-bottom-color: #667eea;
+    }
+
+    .dfd-box__icon {
+      color: #667eea;
+    }
+
+    .dfd-badge {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+  }
+
+  &.is-expanded > .dfd-box {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  }
+}
+
+.dfd-entity--position {
+  > .dfd-box {
+    border-color: #0d6efd;
+
+    .dfd-box__icon {
+      color: #0d6efd;
+    }
+  }
+
+  &.is-expanded > .dfd-box {
+    background-color: rgba(13, 110, 253, 0.05);
+  }
+}
+
+.dfd-entity--task {
+  > .dfd-box {
+    border-color: #ffc107;
+
+    .dfd-box__icon {
+      color: #ffc107;
+    }
+  }
+
+  &.is-expanded > .dfd-box {
+    background-color: rgba(255, 193, 7, 0.05);
+  }
+}
+
+.dfd-entity--achievement {
+  > .dfd-box {
+    border-color: #198754;
+
+    .dfd-box__icon {
+      color: #198754;
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+  background: white;
+  border-radius: 8px;
+}
+
 @media (max-width: 768px) {
   .resume-detail {
     &__title {
@@ -194,6 +431,86 @@
         width: 100%;
         justify-content: center;
       }
+    }
+  }
+
+  // モバイルではシンプルなアコーディオン表示
+  .dfd-view {
+    padding: 20px 16px;
+    background-color: #f8f9fa;
+  }
+
+  .dfd-container {
+    max-width: 100%;
+  }
+
+  // モバイルではボックスをシンプルに
+  .dfd-box {
+    border-width: 2px;
+    padding: 12px;
+
+    &__header {
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+    }
+
+    &__icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    &__title {
+      font-size: 16px;
+    }
+
+    &__body {
+      font-size: 13px;
+    }
+
+    &__meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    &__improvement {
+      margin-top: 8px;
+      padding: 8px;
+      font-size: 12px;
+    }
+  }
+
+  .dfd-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  .dfd-period {
+    font-size: 12px;
+  }
+
+  // 矢印をコンパクトに
+  .dfd-arrow-down {
+    height: 30px;
+    margin: 0 auto 12px;
+  }
+
+  // 子要素は左パディングなし、ネストインジケーターで表現
+  .dfd-children-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-left: 0;
+    border-left: 3px solid #e9ecef;
+    margin-left: 12px;
+    padding-left: 12px;
+  }
+
+  // 会社エンティティは最外層なので左ボーダーなし
+  .dfd-entity--company {
+    > .dfd-children .dfd-children-grid {
+      border-left: none;
+      margin-left: 0;
+      padding-left: 0;
     }
   }
 }
