@@ -12,6 +12,7 @@ import FileLinesIcon from "../../components/FileLinesIcon.vue";
 import AuthTab from "../../components/AuthTab.vue";
 import ResumeForm from "../../components/ResumeForm.vue";
 import OpenAboutModalButton from "../../components/OpenAboutModalButton.vue"
+import ResumeDetailView from "../../components/Resume/ResumeDetailView.vue"
 
 export default {
   LoginIcon,
@@ -27,5 +28,6 @@ export default {
   FileLinesIcon,
   AuthTab,
   ResumeForm,
-  OpenAboutModalButton
+  OpenAboutModalButton,
+  ResumeDetailView,
 }
