@@ -2,8 +2,8 @@ class ResumesController < ApplicationController
   before_action :set_user
   before_action :deny_guest_access!, except: [:new, :show]
   before_action :check_guest_resume_limit, only: [:new]
-  before_action :set_resume, only: [:show]
-  before_action :authorize_resume!, only: [:show]
+  before_action :set_resume, only: [:show, :generate_summary]
+  before_action :authorize_resume!, only: [:show, :generate_summary]
 
   def new
     # 既に resume が存在する場合はそれを使用、なければ新規作成
@@ -11,6 +11,13 @@ class ResumesController < ApplicationController
   end
 
   def show; end
+
+  def generate_summary
+    summary_text = @resume.generate_summary_data
+    @resume.update!(summary: summary_text)
+
+    redirect_to resume_path(@resume), notice: "職務経歴書のサマリーを生成しました。"
+  end
 
   private
 

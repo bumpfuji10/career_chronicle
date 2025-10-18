@@ -1,7 +1,7 @@
 class Api::V1::ResumesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_resume, only: [:show]
-  before_action :authorize_resume!, only: [:show]
+  before_action :set_resume, only: [:show, :update]
+  before_action :authorize_resume!, only: [:show, :update]
 
   # userが他人のresumeを閲覧しようとしたら例外発生
   def show
@@ -15,6 +15,14 @@ class Api::V1::ResumesController < ApplicationController
       render json: resume, status: :created
     else
       render json: { errors: resume.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @resume.update(resume_params)
+      render json: @resume, status: :ok
+    else
+      render json: { errors: @resume.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
