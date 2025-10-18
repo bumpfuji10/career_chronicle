@@ -1,0 +1,7 @@
+.resume-detail__summary
+  h2.resume-detail__summary-title 職務経歴書
+  .resume-detail__summary-content
+    - if resume.summary.present?
+      = simple_format(resume.summary)
+    - else
+      p.text-muted まだサマリーが生成されていません

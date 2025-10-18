@@ -93,13 +93,62 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // components/index.js に登録されたコンポーネント群を一括で処理
-  Object.entries(components).forEach(([name, Component]) => {
-    const el = document.getElementById(name)
-    if (el) {
-      createApp(Component)
-        .use(pinia)
-        .component('FontAwesomeIcon', FontAwesomeIcon)
-        .mount(el)
-    }
+  const mountComponents = () => {
+    Object.entries(components).forEach(([name, Component]) => {
+      const el = document.getElementById(name)
+      if (el && !el.__vue_app__) { // 既にマウント済みでない場合のみマウント
+        const app = createApp(Component)
+        app.use(pinia)
+        app.component('FontAwesomeIcon', FontAwesomeIcon)
+
+        // ResumeDetailView/ResumeDetailViewMobileの場合、propsを渡す
+        if (name === 'ResumeDetailView') {
+          const resumeId = el.getAttribute('data-resume-id')
+          console.log(`Mounting ${name} with resumeId:`, resumeId)
+          if (resumeId) {
+            app.provide('resumeId', parseInt(resumeId, 10))
+          }
+        }
+
+        app.mount(el)
+      }
+    })
+  }
+
+  // 初回マウント
+  mountComponents()
+
+  // MutationObserverでDOM変更を監視して再マウント
+  const observer = new MutationObserver(() => {
+    mountComponents()
+  })
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  })
+
+  // Resume view toggle functionality
+  const toggleOptions = document.querySelectorAll('.toggle-switch__option')
+
+  toggleOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      const targetView = this.getAttribute('data-view')
+
+      // トグル状態を更新
+      toggleOptions.forEach(opt => opt.classList.remove('toggle-switch__option--active'))
+      this.classList.add('toggle-switch__option--active')
+
+      // すべてのビューを非表示
+      document.querySelectorAll('.resume-view').forEach(view => {
+        view.classList.add('resume-view--hidden')
+      })
+
+      // 対象のビューだけ表示
+      const targetElement = document.querySelector(`[data-view-target="${targetView}"]`)
+      if (targetElement) {
+        targetElement.classList.remove('resume-view--hidden')
+      }
+    })
   })
 })

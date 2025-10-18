@@ -10,22 +10,26 @@
 
     <div class="resume-form">
       <div v-if="step === 1" class="step">
-        <CompanyForm :form="form" @nextStep="nextStep" />
+        <CompanyForm :resume-id="resumeId" @nextStep="handleCompanyCreated" />
       </div>
       <div v-else-if="step === 2" class="step">
-        <RoleProjectForm
-          :form="form"
-          @nextStep="nextStep"
+        <RolePositionForm
+          :company-id="companyId"
+          @nextStep="handleRolePositionCreated"
           @prevStep="prevStep"
         />
       </div>
       <div v-else-if="step === 3" class="step">
-        <ApproachForm :form="form" @nextStep="nextStep" @prevStep="prevStep" />
+        <ProjectTaskForm
+          :position-id="positionId"
+          @nextStep="handleTaskCreated"
+          @prevStep="prevStep"
+        />
       </div>
       <div v-else-if="step === 4" class="step">
         <AchievementForm
-          :form="form"
-          @nextStep="nextStep"
+          :task-id="taskId"
+          @nextStep="handleAchievementCreated"
           @prevStep="prevStep"
         />
       </div>
@@ -47,7 +51,8 @@ import ProgressBar from "./ProgressBar.vue";
 import CelebrationAnimation from "./CelebrationAnimation.vue";
 
 import CompanyForm from "./Resume/CompanyForm.vue";
-import RoleProjectForm from "./Resume/RoleProjectForm.vue";
+import RolePositionForm from "./Resume/RolePositionForm.vue"
+import ProjectTaskForm from "./Resume/ProjectTaskForm.vue";
 import ApproachForm from "./Resume/ApproachForm.vue";
 import AchievementForm from "./Resume/AchievementForm.vue";
 import SummaryForm from "./Resume/SummaryForm.vue";
@@ -58,7 +63,8 @@ export default {
     ProgressBar,
     CelebrationAnimation,
     CompanyForm,
-    RoleProjectForm,
+    RolePositionForm,
+    ProjectTaskForm,
     ApproachForm,
     AchievementForm,
     SummaryForm,
@@ -69,35 +75,47 @@ export default {
       done: false,
       showCelebration: false,
       savedResumeId: null,
-      form: {
-        company: "",
-        position: "",
-        start_at: "",
-        end_at: "",
-        is_current: false,
-        tasks: "",
-        improvements: "",
-        achievements: "",
-      },
+      resumeId: null,
+      companyId: null,
+      positionId: null,
+      taskId: null,
       summary: "",
       stepLabels: [
-        "基本情報",
-        "やったこと",
-        "工夫したこと",
+        "会社名を入力",
+        "所属部署・役職",
+        "やったこと・工夫したこと",
         "成果・実績",
         "文章整形",
       ],
     };
+  },
+  mounted() {
+    // data-resume-id 属性から resumeId を取得
+    const resumeFormElement = document.getElementById('ResumeForm');
+    if (resumeFormElement) {
+      this.resumeId = parseInt(resumeFormElement.dataset.resumeId);
+    }
   },
   methods: {
     handleCelebrationHide() {
       this.showCelebration = false;
       this.done = true;
     },
-    handleCurrentJobChange() {
-      if (this.form.is_current) {
-        this.form.end_at = "";
-      }
+    handleCompanyCreated(companyData) {
+      this.companyId = companyData.id;
+      this.nextStep();
+    },
+    handleRolePositionCreated(rolePositionData) {
+      this.positionId = rolePositionData.id
+      this.nextStep()
+    },
+    handleTaskCreated(taskData) {
+      this.taskId = taskData.id
+      this.nextStep()
+    },
+    handleAchievementCreated(achievementData) {
+      this.achevementId = achievementData.id
+      this.nextStep()
     },
     nextStep() {
       if (this.step < 5) {

@@ -24,31 +24,25 @@ RSpec.describe Company, type: :model do
 
     context '必須項目の確認' do
       it 'nameが必須である' do
-        company = Company.new(resume: resume, name: nil, industry: 'IT', started_at: Date.today, description: '説明')
+        company = Company.new(resume: resume, name: nil, industry: 'IT', started_at: Date.today)
         expect(company).to be_invalid
         expect(company.errors[:name]).to include("を入力してください")
       end
 
       it 'industryが必須である' do
-        company = Company.new(resume: resume, name: 'テスト企業', industry: nil, started_at: Date.today, description: '説明')
+        company = Company.new(resume: resume, name: 'テスト企業', industry: nil, started_at: Date.today)
         expect(company).to be_invalid
         expect(company.errors[:industry]).to include("を入力してください")
       end
 
       it 'started_atが必須である' do
-        company = Company.new(resume: resume, name: 'テスト企業', industry: 'IT', started_at: nil, description: '説明')
+        company = Company.new(resume: resume, name: 'テスト企業', industry: 'IT', started_at: nil)
         expect(company).to be_invalid
         expect(company.errors[:started_at]).to include("を入力してください")
       end
 
-      it 'descriptionが必須である' do
-        company = Company.new(resume: resume, name: 'テスト企業', industry: 'IT', started_at: Date.today, description: nil)
-        expect(company).to be_invalid
-        expect(company.errors[:description]).to include("を入力してください")
-      end
-
       it 'resumeが紐づいていない場合、作成に失敗する' do
-        company = Company.new(resume: nil, name: 'テスト企業', industry: 'IT', started_at: Date.today, description: '説明')
+        company = Company.new(resume: nil, name: 'テスト企業', industry: 'IT', started_at: Date.today)
         expect(company).to be_invalid
         expect(company.errors[:resume]).to be_present
       end
@@ -56,12 +50,12 @@ RSpec.describe Company, type: :model do
 
     context 'ended_atの扱い' do
       it 'ended_atがnilでも有効（現在在籍中の企業）' do
-        company = Company.new(resume: resume, name: 'テスト企業', industry: 'IT', started_at: Date.today, ended_at: nil, description: '説明')
+        company = Company.new(resume: resume, name: 'テスト企業', industry: 'IT', started_at: Date.today, ended_at: nil)
         expect(company).to be_valid
       end
 
       it 'ended_atが設定されていても有効（退職済みの企業）' do
-        company = Company.new(resume: resume, name: 'テスト企業', industry: 'IT', started_at: Date.new(2020, 1, 1), ended_at: Date.new(2023, 12, 31), description: '説明')
+        company = Company.new(resume: resume, name: 'テスト企業', industry: 'IT', started_at: Date.new(2020, 1, 1), ended_at: Date.new(2023, 12, 31))
         expect(company).to be_valid
       end
     end
@@ -77,8 +71,7 @@ RSpec.describe Company, type: :model do
         name: 'テック株式会社',
         industry: 'IT',
         started_at: Date.new(2020, 4, 1),
-        ended_at: Date.new(2023, 3, 31),
-        description: 'Webアプリケーション開発'
+        ended_at: Date.new(2023, 3, 31)
       )
 
       expect(company).to be_persisted
@@ -94,8 +87,7 @@ RSpec.describe Company, type: :model do
         name: '現在の企業',
         industry: 'IT',
         started_at: Date.new(2023, 4, 1),
-        ended_at: nil,
-        description: 'バックエンド開発'
+        ended_at: nil
       )
 
       expect(company).to be_persisted

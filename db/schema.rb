@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_11_132225) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_13_033521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,7 +28,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_11_132225) do
     t.string "industry", null: false
     t.date "started_at", null: false
     t.date "ended_at"
-    t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["resume_id"], name: "index_companies_on_resume_id"
@@ -42,6 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_11_132225) do
     t.date "ended_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "department", null: false
     t.index ["company_id"], name: "index_positions_on_company_id"
     t.index ["started_at"], name: "index_positions_on_started_at"
   end
@@ -50,14 +50,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_11_132225) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "summary"
     t.index ["user_id"], name: "index_resumes_on_user_id", unique: true
   end
 
   create_table "tasks", force: :cascade do |t|
     t.bigint "position_id", null: false
-    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "task_description", null: false
+    t.text "improvement"
     t.index ["position_id"], name: "index_tasks_on_position_id"
   end
 

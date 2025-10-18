@@ -1,16 +1,38 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_member, :logged_in?
+  helper_method :current_member, :current_guest, :logged_in?
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from UnauthorizedError, with: :render_forbidden
 
   private
 
-  def current_member
-    @current_member ||= Member.find_by(id: session[:user_id]) if session[:user_id]
+  # 既存のゲストユーザーを取得（作成しない）
+  # tokenなし, 有効期限が切れている場合はnil
+  def current_guest
+    return nil unless session[:guest_token]
+    return nil unless session[:guest_user_expires_at]
+
+    expiration = Time.parse(session[:guest_user_expires_at].to_s)
+    return nil if expiration < Time.current  # 期限切れ
+
+    @current_guest ||= Guest.find_by(session_token: session[:guest_token])
+  end
+                               
+  # ゲストユーザーを作成（必要な時のみ明示的に呼ぶ）
+  def create_guest_user!
+    return current_guest if current_guest
+
+    guest = Guest.create!(session_token: SecureRandom.hex(16))
+    session[:guest_token] = guest.session_token
+    session[:guest_user_expires_at] = 1.week.from_now.iso8601
+    @current_guest = guest
   end
 
-  def current_guest
-    @current_guest ||= ProvideGuestUser.new(session).call
+  def current_user
+    current_member || current_guest
+  end
+
+  def current_member
+    @current_member ||= Member.find_by(id: session[:user_id]) if session[:user_id]
   end
 
   def logged_in?
